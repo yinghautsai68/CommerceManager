@@ -1,8 +1,12 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Register from './Pages/Register'
 
 const App = () => {
   return (
-    <div>App</div>
+    <Routes>
+      <Route path='/register' element={<Register />} />
+    </Routes>
   )
 }
 
