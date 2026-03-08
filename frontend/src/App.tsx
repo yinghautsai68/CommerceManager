@@ -7,6 +7,8 @@ import DashboardLayout from './layout/DashboardLayout'
 import Products from './pages/Products'
 import ProductDetails from './pages/ProductDetails'
 import Orders from './pages/Orders'
+import OrderDetails from './pages/OrderDetails'
+import Workers from './pages/Workers'
 
 const App = () => {
   return (
@@ -18,6 +20,8 @@ const App = () => {
       <Route path='/products' element={<DashboardLayout><Products /></DashboardLayout>} />
       <Route path='/products/:id' element={<DashboardLayout><ProductDetails></ProductDetails></DashboardLayout>} />
       <Route path='/orders' element={<DashboardLayout><Orders /></DashboardLayout>} />
+      <Route path='/orders/:id' element={<DashboardLayout><OrderDetails /></DashboardLayout>} />
+      <Route path='/workers' element={<DashboardLayout><Workers /></DashboardLayout>} />
     </Routes >
   )
 }

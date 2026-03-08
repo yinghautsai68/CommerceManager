@@ -15,5 +15,5 @@ export const FormTitle = ({ className, children }: TitleProps) => {
 }
 
 export const SubTitle = ({ className, children }: TitleProps) => {
-    return <h1 className={`${className} text-xl `}> {children}</h1>
+    return <h1 className={`${className} text-lg `}> {children}</h1>
 }
