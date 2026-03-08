@@ -7,7 +7,7 @@ interface TitleProps {
 }
 
 export const Title = ({ className, children }: TitleProps) => {
-    return <h1 className={`${className}  px-5  text-4xl text-gray-700 font-bold text-blue-950 `}> {children}</h1 >
+    return <h1 className={`${className}  px-5  text-4xl  font-bold text-blue-900 `}> {children}</h1 >
 }
 
 export const FormTitle = ({ className, children }: TitleProps) => {

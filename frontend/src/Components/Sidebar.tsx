@@ -2,6 +2,10 @@ import React from 'react'
 import { ListItem } from './ListItem'
 import { Title } from './Typography'
 
+import IconHome from '../assets/icons/icon-home.png'
+import IconProduct from '../assets/icons/icon-product.png'
+import IconCart from '../assets/icons/icon-cart.png'
+import IconStaffs from '../assets/icons/icon-staffs.png'
 interface SidebarProps {
     className: string,
     handleClose: (value: boolean) => void

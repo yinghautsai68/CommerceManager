@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Sidebar from '../components/Sidebar'
 
+import IconHome from '../assets/icons/icon-home.png'
+import IconProduct from '../assets/icons/icon-product.png'
+import IconCart from '../assets/icons/icon-cart.png'
+import IconStaffs from '../assets/icons/icon-staffs.png'
+import { NavLink } from 'react-router-dom'
 interface DashboardLayoutProps {
     children: React.ReactNode
 }
@@ -22,12 +27,11 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
 
             <div className=' w-full min-h-screen bg-white px-2 pt-20 pb-20 '>
                 {children}
-                <div className='fixed left-0 bottom-0 flex flex-row justify-center items-center gap-2 w-full p-2 bg-blue-500'>
-                    <div className='w-10 aspect-square border'></div>
-                    <div className='w-10 aspect-square border'></div>
-                    <div className='w-10 aspect-square border'></div>
-                    <div className='w-10 aspect-square border'></div>
-                    <div className='w-10 aspect-square border'></div>
+                <div className='fixed left-0 bottom-0 flex flex-row justify-center items-center gap-6  w-full p-2 bg-blue-500'>
+                    <NavLink to='/dashboard'><img src={IconHome} alt="" className='w-10 aspect-square ' /></NavLink>
+                    <NavLink to='/products'><img src={IconProduct} alt="" className='w-10 aspect-square' /></NavLink>
+                    <NavLink to='/orders'><img src={IconCart} alt="" className='w-10 aspect-square' /></NavLink>
+                    <NavLink to='/workers'><img src={IconStaffs} alt="" className='w-10 aspect-square ' /></NavLink>
                 </div>
             </div>
 
