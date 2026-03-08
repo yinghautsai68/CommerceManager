@@ -22,7 +22,7 @@ const Products = () => {
         <div className='flex flex-col gap-5 w-full h-full '>
             <div className='flex flex-row justify-between items-centers w-full '>
                 <Title className=''>商品</Title>
-                <Button className='p-2'>新增商品</Button>
+                <Button className='p-2 font-bold'>新增商品</Button>
             </div>
             <div className='flex flex-col gap-1 '>
                 <ProductCard></ProductCard>

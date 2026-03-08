@@ -6,8 +6,8 @@ import ShipmentStatus from './ShipmentStatus'
 
 const OrderCard = () => {
     return (
-        <Card className='flex flex-col gap-1 px-3'>
-            <div className='flex flex-row justify-between items-end'>
+        <Card className='flex flex-col gap-1 w-full  px-3'>
+            <div className='flex flex-row justify-between items-end2'>
                 <div className='flex flex-col'>
                     <span className='translate-y-2 text-xs font-semibold'>訂單編號</span>
                     <span className='font-semibold'>#55005</span>

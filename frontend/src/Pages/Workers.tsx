@@ -7,14 +7,14 @@ import WorkerCard from '../components/WorkerCard'
 
 const Workers = () => {
     return (
-        <div className='flex flex-col gap-5'>
-            <div className='flex flex-row justify-between '>
+        <div className='flex flex-col gap-5 '>
+            <div className='flex flex-row justify-between w-full '>
                 <Title>員工</Title>
-                <Button>新增員工</Button>
+                <Button className='p-2 font-bold'>新增員工</Button>
             </div>
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-2 w-full'>
                 <Filter></Filter>
-                <div className='flex flex-col gap-1'>
+                <div className='flex flex-col gap-1 w-full '>
                     <WorkerCard></WorkerCard>
                     <WorkerCard></WorkerCard>
                     <WorkerCard></WorkerCard>
