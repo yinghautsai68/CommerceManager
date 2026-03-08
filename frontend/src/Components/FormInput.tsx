@@ -9,8 +9,8 @@ interface FormInputProps {
 const FormInput = ({ name, type, value, handleChange }: FormInputProps) => {
     return (
         <div className='flex flex-col w-full'>
-            <label htmlFor={name} className='capitalize'>{name}</label>
-            <input id={name} name={name} value={value} type={type} onChange={(e) => handleChange(e)} required className='pl-2 border border-black' />
+            <label htmlFor={name} className='capitalize text-gray-500'>{name}</label>
+            <input id={name} name={name} value={value} type={type} onChange={(e) => handleChange(e)} required className='pl-2 py-1 border border-gray-300 rounded-lg' />
         </div>
     )
 }
