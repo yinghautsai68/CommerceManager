@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { FormTitle } from '../Components/Typography'
-import FormInput from '../Components/FormInput'
-import { Button } from '../Components/Button'
+import { FormTitle } from '../components/Typography'
+import FormInput from '../components/FormInput'
+import { Button } from '../components/Button'
 interface LoginFormDataProps {
     username: string,
     password: string
