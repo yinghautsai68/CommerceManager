@@ -1,12 +1,13 @@
 import React from 'react'
 
 interface ButtonProps {
+    onClick?: () => void,
     type?: string,
     children: React.ReactNode,
     className?: string
 }
-export const Button = ({ type, className, children }: ButtonProps) => {
+export const Button = ({ onClick, type, className, children }: ButtonProps) => {
     return (
-        <button className={`${className} rounded-lg bg-green-500 text-white hover:bg-green-800 transition-all cursor-pointer`}>{children}</button>
+        <button onClick={onClick} className={`${className} p-2 font- rounded-lg bg-green-400 text-white font-extrabold hover:bg-green-800 transition-all cursor-pointer`}>{children}</button>
     )
 }
