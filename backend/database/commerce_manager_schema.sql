@@ -21,6 +21,7 @@ VALUES('123456', '蔡英豪', 'yinghautsai68@gmail.com', '0903621669', 'worker',
 INSERT INTO users (password, name, email, phone, role, work, status) 
 VALUES('123456', '英豪', 'yinghautsai@gmail.com', '0903621668', 'worker', null, 'active');
 
+DROP TABLE IF EXISTS products;
 CREATE TABLE IF NOT EXISTS products(
     id INT AUTO_INCREMENT PRIMARY KEY,
     sku VARCHAR(100) NOT NULL,
@@ -34,6 +35,14 @@ CREATE TABLE IF NOT EXISTS products(
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+INSERT INTO products (sku, name, category, description, price, stock, status, image_url) 
+VALUES
+('P1001', '無線藍牙耳機', '3C電子', '高音質無線藍牙耳機，支援降噪功能與長時間續航。', 1990.00, 50, 'active', 'https://example.com/images/earbuds.jpg'),
+('P1002', '機械式鍵盤', '電腦周邊', 'RGB背光機械式鍵盤，適合打字與遊戲使用。', 2890.00, 30, 'active', 'https://example.com/images/keyboard.jpg'),
+('P1003', '無線滑鼠', '電腦周邊', '人體工學設計無線滑鼠，操作流暢且省電。', 690.00, 80, 'active', 'https://example.com/images/mouse.jpg'),
+('P1004', '27吋電腦螢幕', '3C電子', '27吋IPS螢幕，解析度2560x1440，適合辦公與娛樂。', 7990.00, 20, 'active', 'https://example.com/images/monitor.jpg'),
+('P1005', 'USB-C 多功能轉接器', '電腦周邊', '支援HDMI、USB與SD卡讀取的多功能轉接器。', 1290.00, 60, 'active', 'https://example.com/images/hub.jpg');
+
 
 CREATE TABLE IF NOT EXISTS orders(
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,6 +59,7 @@ CREATE TABLE IF NOT EXISTS orders(
     remarks TEXT,
 );
 
+DROP TABLE IF EXISTS order_items;
 CREATE TABLE IF NOT EXISTS order_items(
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,

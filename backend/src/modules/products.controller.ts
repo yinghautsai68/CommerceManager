@@ -1,0 +1,84 @@
+import type { Request, Response } from "express";
+import { db } from "../config/db";
+import { productSchema } from "./product.schema";
+
+export const createProduct = async (req: Request, res: Response) => {
+    const result = productSchema.safeParse(req.body);
+    if (!result.success) {
+        return res.status(400).json({ message: result.error });
+    }
+    try {
+        const { sku, name, category, description, price, stock, status, image_url } = result.data;
+
+        await db.query(
+            'INSERT INTO products (sku, name , category ,description, price, stock, status, image_url) VALUES (?,?,?,?,?,?,?,?)',
+            [sku, name, category, description, price, stock, status, image_url]
+        );
+        res.status(201).json({ success: true, message: "Created product successfully!" });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: "server error" })
+    }
+}
+
+export const getProducts = async (req: Request, res: Response) => {
+
+    try {
+        const [rows]: any = await db.query("SELECT * FROM products");
+
+        res.status(200).json({ success: true, data: rows });
+    } catch (error) {
+        res.status(500).json({ message: "server error" })
+    }
+}
+export const getProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: "no id provided" });
+    }
+    try {
+        const [rows]: any = await db.query(
+            "SELECT * FROM products WHERE id = ? ",
+            [id]
+        );
+
+        res.status(200).json({ success: true, data: rows[0] });
+    } catch (error) {
+        res.status(500).json({ message: "server error" })
+    }
+}
+
+
+export const editProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: "no id provided" });
+    }
+    try {
+        const { sku, name, category, description, price, stock, status, image_url } = req.body;
+        const [result]: any = await db.query(
+            "UPDATE products SET sku = ?, name =?, category =?, description =?, price = ?, stock = ?, status=?, image_url= ? WHERE id = ?",
+            [sku, name, category, description, price, stock, status, image_url, id]
+        );
+        res.status(200).json({ success: true, message: "Updated product successfully!" })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: "server error" })
+    }
+}
+
+
+export const deleteProduct = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ message: "no id provided" });
+    }
+    try {
+        await db.query(
+            "DELETE FROM products WHERE id = ?",
+            [id]);
+        res.status(200).json({ success: true, message: "Deleted product successfully!" });
+    } catch (error) {
+        res.status(500).json({ message: "server error" })
+    }
+}

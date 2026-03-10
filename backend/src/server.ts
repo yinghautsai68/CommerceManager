@@ -3,6 +3,8 @@ import cors from "cors";
 
 import authRoutes from './modules/auth.routes';
 import usersRoutes from './modules/users.routes';
+import productRoutes from './modules/products.routes';
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -10,6 +12,7 @@ app.use(cors());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/products', productRoutes);
 
 app.get('/', (req, res) => {
     res.send("server running!");
