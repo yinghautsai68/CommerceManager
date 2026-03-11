@@ -1,9 +1,12 @@
 import React from 'react'
 
-const PaymentStatus = () => {
+interface PaymentStatusProps {
+    children: React.ReactNode
+}
+const PaymentStatus = ({ children }: PaymentStatusProps) => {
     return (
         <div className='flex flex-row justify-center items-center p-1 rounded-md bg-green-400 text-sm text-white'>
-            已付款
+            {children}
         </div>
     )
 }

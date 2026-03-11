@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { db } from "../config/db";
 import { productSchema } from "./product.schema";
 
+
 export const createProduct = async (req: Request, res: Response) => {
     const result = productSchema.safeParse(req.body);
     if (!result.success) {
@@ -54,6 +55,11 @@ export const editProduct = async (req: Request, res: Response) => {
     if (!id) {
         return res.status(400).json({ message: "no id provided" });
     }
+    const result = productSchema.safeParse(req.body);
+
+    if (!result.success) {
+        return res.status(400).json({ message: result.error });
+    }
     try {
         const { sku, name, category, description, price, stock, status, image_url } = req.body;
         const [result]: any = await db.query(
@@ -82,3 +88,27 @@ export const deleteProduct = async (req: Request, res: Response) => {
         res.status(500).json({ message: "server error" })
     }
 }
+
+
+
+
+
+export const getLowStockProducts = async (req: Request, res: Response) => {
+    try {
+        // mysql2/promise returns [rows, fields]
+        const [rows]: any[] = await db.query(
+            "SELECT * FROM products "
+        );
+
+        // rows should now contain an array of products
+        res.status(200).json({
+            success: true,
+            data: Array.isArray(rows) ? rows : []
+        });
+
+    } catch (error) {
+        console.error(error);
+        // Always return a response on error
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};

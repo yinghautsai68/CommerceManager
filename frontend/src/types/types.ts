@@ -21,3 +21,30 @@ export interface Product {
     created_at: string,
     updated_at: string
 }
+
+export interface Order {
+    id: number,
+    order_date: string,
+    payment_status: string,
+    shipment_status: string,
+    customer_name: string,
+    customer_number: string,
+    customer_address: string,
+    shipping_method: string,
+    shipping_fee: number,
+    tax: number,
+    total_amount: number,
+    remarks: string
+}
+
+export interface OrderItems {
+    id: number,
+    order_id: number,
+    product_id: number,
+    quantity: number,
+    discount: number,
+    sub_total: number,
+    name: string,
+    price: number,
+    image_url: string
+}
