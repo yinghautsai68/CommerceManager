@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import { db } from "../config/db";
 import { productSchema } from "./product.schema";
+import { success } from "zod";
 
 
 export const createProduct = async (req: Request, res: Response) => {
@@ -43,6 +44,9 @@ export const getProduct = async (req: Request, res: Response) => {
             [id]
         );
 
+        if (rows.length === 0) {
+            return res.status(404).json({ success: false, message: "Product not found!" })
+        }
         res.status(200).json({ success: true, data: rows[0] });
     } catch (error) {
         res.status(500).json({ message: "server error" })
@@ -85,11 +89,12 @@ export const deleteProduct = async (req: Request, res: Response) => {
             [id]);
         res.status(200).json({ success: true, message: "Deleted product successfully!" });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "server error" })
     }
 }
 
-
+// others
 
 
 
@@ -97,13 +102,13 @@ export const getLowStockProducts = async (req: Request, res: Response) => {
     try {
         // mysql2/promise returns [rows, fields]
         const [rows]: any[] = await db.query(
-            "SELECT * FROM products "
+            "SELECT * FROM products WHERE stock <= 60 ORDER BY stock ASC "
         );
 
         // rows should now contain an array of products
         res.status(200).json({
             success: true,
-            data: Array.isArray(rows) ? rows : []
+            data: rows
         });
 
     } catch (error) {
@@ -112,3 +117,20 @@ export const getLowStockProducts = async (req: Request, res: Response) => {
         res.status(500).json({ success: false, message: "Server error" });
     }
 };
+
+export const getTopSellingProducts = async (req: Request, res: Response) => {
+    try {
+        const [rows]: any = await db.query(
+            "SELECT p.*, SUM(oi.quantity) AS total_sold FROM products p JOIN order_items oi ON p.id = oi.product_id GROUP BY p.id ORDER BY total_sold DESC LIMIT 5"
+        );
+        if (rows.length === 0) {
+            return res.status(404).json({ success: false, message: "no top selling products found!" });
+        }
+
+        res.status(200).json({ success: true, data: rows });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "server error!" });
+    }
+}
+

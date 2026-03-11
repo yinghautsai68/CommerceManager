@@ -2,7 +2,7 @@ import React from 'react'
 
 interface KPICardProps {
     title: string,
-    value: string,
+    value: string | number,
 }
 const KPICard = ({ title, value }: KPICardProps) => {
     return (

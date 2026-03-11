@@ -10,6 +10,7 @@ export interface Worker {
 }
 
 export interface Product {
+    id: number,
     sku: string,
     name: string,
     category: string,
@@ -19,7 +20,8 @@ export interface Product {
     status: string,
     image_url: string
     created_at: string,
-    updated_at: string
+    updated_at: string,
+    total_sold?: number
 }
 
 export interface Order {
@@ -33,8 +35,10 @@ export interface Order {
     shipping_method: string,
     shipping_fee: number,
     tax: number,
+    total_items?: number,
     total_amount: number,
-    remarks: string
+    remarks: string,
+
 }
 
 export interface OrderItems {

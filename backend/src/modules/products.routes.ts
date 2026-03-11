@@ -1,12 +1,14 @@
 import express from "express";
-import { createProduct, editProduct, getProduct, getProducts, deleteProduct, getLowStockProducts } from "./products.controller";
+import { createProduct, editProduct, getProduct, getProducts, deleteProduct, getLowStockProducts, getTopSellingProducts } from "./products.controller";
 const router = express.Router();
 
 router.post('/', createProduct);
 router.get('/', getProducts);
+router.get('/low-stock', getLowStockProducts);
+router.get('/top-selling', getTopSellingProducts);
+
 router.get('/:id', getProduct);
 router.patch('/:id', editProduct);
 router.delete('/:id', deleteProduct);
 
-router.get('/low-stock', getLowStockProducts);
 export default router;
