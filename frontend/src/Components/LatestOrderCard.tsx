@@ -17,8 +17,8 @@ export const LatestOrderCard = ({ order }: LatestOrderCardProps) => {
 
             <div className='flex-1 flex flex-col justify-end items-end h-full'>
                 <div className='translate-y-2 flex-1 flex flex-row gap-1  '>
-                    <PaymentStatus>{order.payment_status}</PaymentStatus>
-                    <ShipmentStatus>{order.shipment_status}</ShipmentStatus>
+                    <PaymentStatus status={order.payment_status} />
+                    <ShipmentStatus status={order.shipment_status} />
                 </div>
                 <span className='translate-y-1.5 flex-1 text-xs '>{order.total_items} 件</span>
                 <span className='translate-y-1 flex-1 text-xs font-medium'>NT$ {order.total_amount}</span>

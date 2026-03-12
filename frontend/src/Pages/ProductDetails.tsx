@@ -9,7 +9,9 @@ import type { Product } from '../types/types'
 const ProductDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+    const [isEditing, setIsEditing] = useState<boolean>(false);
     const [formData, setFormdata] = useState<Product>({
+        id: 0,
         sku: "",
         name: "",
         category: "",
@@ -33,7 +35,7 @@ const ProductDetails = () => {
                     return console.log(result.message);
                 }
                 console.log(result.data);
-                setFormdata(result.data);
+                setFormdata({ ...result.data, price: Number(result.data.price), stock: Number(result.data.stock) });
             } catch (error) {
                 console.log(error);
             }
@@ -43,9 +45,9 @@ const ProductDetails = () => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
 
-        setFormdata((prev) => ({ ...prev, [name]: value }));
+        setFormdata((prev) => ({ ...prev, [name]: type === 'number' ? Number(value) : value }));
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -89,7 +91,7 @@ const ProductDetails = () => {
         }
     }
     return (
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-5 px-2 md:px-10'>
             <div className='flex flex-row'>
                 <div className='flex flex-col flex-1'>
                     <Title>商品資訊</Title>
@@ -103,7 +105,7 @@ const ProductDetails = () => {
                     id &&
                     <div className='flex flex-row justify-center items-end gap-1'>
 
-                        <Button className='p-1'>編輯</Button>
+                        <Button onClick={() => setIsEditing(prev => !prev)} className='p-1'>編輯</Button>
                         <Button onClick={() => handleDelete()} className='p-1 bg-red-400'>刪除</Button>
                     </div>
                 }
@@ -124,18 +126,18 @@ const ProductDetails = () => {
                 </div>
             }
 
-            <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-                <FormInput name='name' label='商品名稱' value={formData.name} handleChange={handleChange} type='text' />
-                <FormInput name='category' label='商品分類' value={formData.category} handleChange={handleChange} type='text' />
-                <FormInput name='status' label='上架狀態' value={formData.status} handleChange={handleChange} type='text' />
-                <FormInput name='stock' label='庫存量' value={formData.stock} handleChange={handleChange} type='number' />
-                <FormInput name='price' label='商品售價' value={formData.price} handleChange={handleChange} type='number' />
-                <FormInput name='description' label='商品詳細描述' value={formData.description} handleChange={handleChange} type='text' />
+            <form onSubmit={handleSubmit} className='flex flex-col gap-4 xl:w-[70%]'>
+                <FormInput name='name' label='商品名稱' value={formData.name} handleChange={handleChange} type='text' readOnly={!isEditing} />
+                <FormInput name='category' label='商品分類' value={formData.category} handleChange={handleChange} type='text' readOnly={!isEditing} />
+                <FormInput name='status' label='上架狀態' value={formData.status} handleChange={handleChange} type='text' readOnly={!isEditing} />
+                <FormInput name='stock' label='庫存量' value={formData.stock} handleChange={handleChange} type='number' readOnly={!isEditing} />
+                <FormInput name='price' label='商品售價' value={formData.price} handleChange={handleChange} type='number' readOnly={!isEditing} />
+                <FormInput name='description' label='商品詳細描述' value={formData.description} handleChange={handleChange} type='text' readOnly={!isEditing} />
 
 
-                <div className='flex flex-col gap-2'>
-                    <SubTitle className='text-gray-500'>照片</SubTitle>
-                    <div className='grid grid-cols-5 gap-1 '>
+                <div className='flex flex-col gap-2 lg:w-[80%] xl:w-[50%]'>
+                    <SubTitle className='lg:text-xl font-semibold text-gray-500 '>照片</SubTitle>
+                    <div className='grid grid-cols-5 gap-1  '>
                         <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
                         <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
                         <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
@@ -145,9 +147,13 @@ const ProductDetails = () => {
                     <input type="file" className='pl-5 py-1 border border-gray-300 rounded-lg' />
                 </div>
 
-                <div className='flex flex-row justify-end items-center'>
-                    <Button type='submit' className='px-5'>{id ? '編輯' : '新增商品'}</Button>
-                </div>
+                {
+                    isEditing &&
+                    <div className='flex flex-row justify-end items-center'>
+                        <Button type='submit' className='px-5'>{id ? '儲存' : '新增商品'}</Button>
+                    </div>
+                }
+
             </form>
         </div >
     )

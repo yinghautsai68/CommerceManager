@@ -68,17 +68,19 @@ const OrderDetails = () => {
 
     const orderTotal = orderItemTotal + Number(order.shipping_fee) + Number(order.tax);
     return (
-        <div className='w-full h-full'>
+        <div className='w-full'>
             <div className='pl-10 pt-4 pb-2 rounded-tl-xl rounded-tr-xl  bg-blue-500'>
                 <span className=' text-3xl font-bold text-white'>訂單詳細資訊</span>
             </div>
-            <div className='flex flex-col gap-2 px-2 pt-5 border border-gray-300 h-full'>
+
+            <div className='flex flex-col gap-2 w-full min-h-screen px-2 pt-5 pb-10  border border-gray-300 '>
                 <div className='flex flex-row justify-between items-end px-3'>
                     <div className='flex flex-col'>
-                        <span className=' font-medium' >訂單編號</span>
-                        <span className='text-gray-500'>#{order.id}</span>
+                        <span className='xl:text-lg font-medium' >訂單編號</span>
+                        <span className='xl:text-lg text-gray-500'>#{order.id}</span>
                     </div>
-                    <div className='flex flex-row gap-1'>
+
+                    <div className='hidden flex flex-row gap-1'>
                         <Button className='p-1'>編輯</Button>
                         <Button className='p-1 bg-red-400'>取消訂單</Button>
                     </div>
@@ -107,32 +109,31 @@ const OrderDetails = () => {
                     </div>
                 </Card>
 
-                <Card className='px-4 pt-6'>
-                    <SubTitle>訂單商品</SubTitle>
-                    <div className='px-2'>
-                        {
-                            orderItems.map((item, index) => {
-                                return (
-                                    <OrdersProductCard key={index} orderItem={item} />
-                                )
-                            })
-                        }
-
-
-                    </div>
-                </Card>
-
-                <Card className='flex flex-col gap-3'>
-                    <div className='pl-3 py-3 bg-blue-500 rounded-xl'>
-                        <span className='text-white font-bold'>訂單金額</span>
-                    </div>
-                    <div className='px-3'>
-                        <Details label="商品小計：" value={`NT$ ${orderItemTotal.toFixed(2)}`} />
-                        <Details label="運費：" value={`NT$ ${order.shipping_fee}`} />
-                        <Details label="稅金：" value={`NT$ ${order.tax}`} />
-                        <Details label="訂單總金額：" value={`NT$ ${orderTotal.toFixed(2)}`} className='font-bold text-blue-500' />
-                    </div>
-                </Card>
+                <div className='flex flex-col lg:flex-row lg:items-start gap-2  w-full h-full'>
+                    <Card className='lg:w-[50%] h-full px-4 pt-6'>
+                        <SubTitle>訂單商品</SubTitle>
+                        <div className='px-2'>
+                            {
+                                orderItems.map((item, index) => {
+                                    return (
+                                        <OrdersProductCard key={index} orderItem={item} />
+                                    )
+                                })
+                            }
+                        </div>
+                    </Card>
+                    <Card className='lg:w-[50%] h-full flex flex-col gap-3'>
+                        <div className='pl-3 py-3 bg-blue-500 rounded-xl'>
+                            <span className='text-white font-bold'>訂單金額</span>
+                        </div>
+                        <div className='px-3'>
+                            <Details label="商品小計：" value={`NT$ ${orderItemTotal.toFixed(2)}`} />
+                            <Details label="運費：" value={`NT$ ${order.shipping_fee}`} />
+                            <Details label="稅金：" value={`NT$ ${order.tax}`} />
+                            <Details label="訂單總金額：" value={`NT$ ${orderTotal.toFixed(2)}`} className='font-bold text-blue-500' />
+                        </div>
+                    </Card>
+                </div>
             </div>
         </div>
     )

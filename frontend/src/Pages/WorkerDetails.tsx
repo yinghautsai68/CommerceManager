@@ -103,7 +103,7 @@ const WorkerDetails = () => {
         }
     }
     return (
-        <div className='flex flex-col gap-5'>
+        <div className='flex flex-col gap-5 md:px-10'>
 
             {!!id ?
                 < div className='flex flex-row justify-between items-end'>
@@ -125,7 +125,7 @@ const WorkerDetails = () => {
 
                 </div>
             }
-            <form onSubmit={handleSubmit} className='flex flex-col gap-5 px-2'>
+            <form onSubmit={handleSubmit} className='flex flex-col gap-5 xl:w-[70%] px-2 overflow-auto'>
                 <FormInput name='name' label='員工姓名' type='text' value={formData.name} handleChange={handlechange} readOnly={!isEditing} />
                 <FormInput name='email' label='電子郵件' type='text' value={formData.email} handleChange={handlechange} readOnly={!isEditing} />
                 <FormInput name='phone' label='連絡電話' type='text' value={formData.phone} handleChange={handlechange} readOnly={!isEditing} />
@@ -141,7 +141,7 @@ const WorkerDetails = () => {
                 {
                     isEditing &&
                     <div className='flex flex-row justify-end items-center w-full'>
-                        <Button className='w-[30%]'>{!!id ? '編輯員工' : '新增員工'}</Button>
+                        <Button className='w-[30%] lg:w-[15%]'>{!!id ? '編輯員工' : '新增員工'}</Button>
                     </div>
                 }
 

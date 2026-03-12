@@ -27,8 +27,8 @@ const Workers = () => {
         fetchWorkers()
     }, [])
     return (
-        <div className='flex flex-col gap-5 '>
-            <div className='flex flex-row justify-between w-full '>
+        <div className='flex flex-col gap-5  lg:px-10'>
+            <div className='flex flex-row justify-between w-full'>
                 <Title>員工</Title>
                 <Link to='/workers/new'>
                     <Button className='p-2 font-bold'>新增員工</Button>

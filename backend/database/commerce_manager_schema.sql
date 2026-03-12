@@ -118,4 +118,6 @@ VALUES
 (9, 2, 1, 0, 2890),
 (10, 3, 1, 0, 690);
 
-
+INSERT INTO order_items (order_id, product_id, quantity, discount, sub_total)
+VALUES
+(1, 2, 1, 0, 1990),

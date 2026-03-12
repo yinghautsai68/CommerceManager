@@ -17,7 +17,7 @@ export interface Product {
     description: string,
     price: number,
     stock: number,
-    status: string,
+    status: 'active' | 'archived',
     image_url: string
     created_at: string,
     updated_at: string,
@@ -27,8 +27,8 @@ export interface Product {
 export interface Order {
     id: number,
     order_date: string,
-    payment_status: string,
-    shipment_status: string,
+    payment_status: 'pending' | 'paid' | 'failed',
+    shipment_status: 'pending' | 'shipped' | 'completed' | 'cancelled',
     customer_name: string,
     customer_number: string,
     customer_address: string,

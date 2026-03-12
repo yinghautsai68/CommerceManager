@@ -25,7 +25,7 @@ const Products = () => {
     }
     useEffect(() => { fetchProducts() }, []);
     return (
-        <div className='flex flex-col gap-5 w-full h-full '>
+        <div className='flex flex-col gap-5 w-full lg:px-10  '>
             <div className='flex flex-row justify-between items-centers w-full '>
                 <Title className=''>商品</Title>
                 <Link to='/products/new'>

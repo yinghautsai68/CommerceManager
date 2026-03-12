@@ -27,7 +27,7 @@ const Orders = () => {
     }
     useEffect(() => { fetchProducts() }, []);
     return (
-        <div className='flex flex-col gap-5 w-full'>
+        <div className='flex flex-col gap-5 w-full md:px-10'>
             <Title>訂單</Title>
 
             <div className='flex flex-col gap-2 w-full '>

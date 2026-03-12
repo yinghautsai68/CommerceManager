@@ -176,7 +176,7 @@ const Dashboard = () => {
     }, []);
 
     return (
-        <div className='flex flex-col  gap-3 w-full h-full '>
+        <div className='flex flex-col  gap-3 w-full '>
             <Title className=''>儀表板</Title>
             <div className='grid grid-rows-2 grid-cols-2 gap-2 w-full'>
                 <KPICard title='總收入' value={`NT$ ${totalRevenue}`} />
