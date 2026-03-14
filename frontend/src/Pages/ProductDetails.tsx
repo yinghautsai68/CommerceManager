@@ -6,6 +6,7 @@ import FormInput from '../components/FormInput'
 import Sony from '../assets/sony_wh1000xm4.jpg'
 import { useNavigate, useParams } from 'react-router-dom'
 import type { Product } from '../types/types'
+import FormSelect from '../Components/FormSelect'
 const ProductDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -24,6 +25,11 @@ const ProductDetails = () => {
         updated_at: ""
     })
 
+    const statusOptions = [
+        { label: "上架", value: "active" },
+        { label: "下架", value: "archived" },
+
+    ]
     if (id) {
         const fetchProduct = async () => {
             try {
@@ -129,7 +135,7 @@ const ProductDetails = () => {
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 xl:w-[70%]'>
                 <FormInput name='name' label='商品名稱' value={formData.name} handleChange={handleChange} type='text' readOnly={!isEditing} />
                 <FormInput name='category' label='商品分類' value={formData.category} handleChange={handleChange} type='text' readOnly={!isEditing} />
-                <FormInput name='status' label='上架狀態' value={formData.status} handleChange={handleChange} type='text' readOnly={!isEditing} />
+                <FormSelect name='status' value={formData.status} handleChange={handleChange} label='狀態' options={statusOptions} isEditing={isEditing} />
                 <FormInput name='stock' label='庫存量' value={formData.stock} handleChange={handleChange} type='number' readOnly={!isEditing} />
                 <FormInput name='price' label='商品售價' value={formData.price} handleChange={handleChange} type='number' readOnly={!isEditing} />
                 <FormInput name='description' label='商品詳細描述' value={formData.description} handleChange={handleChange} type='text' readOnly={!isEditing} />

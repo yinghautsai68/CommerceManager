@@ -3,6 +3,7 @@ import { userSchema } from "./users.schema";
 import { db } from "../config/db";
 
 import bcrypt from 'bcrypt'
+import { success } from "zod";
 
 export const createUser = async (req: Request, res: Response) => {
     const result = userSchema.safeParse(req.body);
@@ -35,15 +36,61 @@ export const createUser = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
     try {
-        const [rows]: any = await db.execute('SELECT id, name, email, phone, role, work, status FROM users ');
+        const role = req.query.role || "";
+        const work = req.query.work || "";
+        const status = req.query.status || "";
 
-        res.status(200).json(
-            {
-                success: true,
-                data: rows
-            }
-        );
+        const page = Number(req.query.page) || 1;
+        const limit = 10;
+        const offset = (page - 1) * 10
+
+        const search = req.query.search || "";
+
+        let query = "SELECT * FROM users ";
+        let filters = [];
+        let params = [];
+
+        if (role) {
+            filters.push("role = ?");
+            params.push(role);
+        }
+        if (work) {
+            filters.push("work = ?");
+            params.push(work);
+        }
+        if (status) {
+            filters.push("status = ?");
+            params.push(status);
+        }
+
+        if (search) {
+            filters.push("name LIKE ? OR email LIKE ? OR phone LIKE ?"),
+                params.push(`%${search}%`, `${search}%`, `${search}%`)
+        }
+
+        let filterClause = "";
+        if (filters.length > 0) {
+            filterClause = `WHERE ${filters.join(" AND ")}`
+        }
+
+        query = query + filterClause + " LIMIT ? OFFSET ?";
+        params.push(limit, offset)
+
+        const [rows]: any = await db.query(query, params);
+
+
+        //Page count
+        let countQuery = `SELECT COUNT(*) AS total_users FROM users ${filterClause} `
+        let countParams = params.slice(0, params.length - 2);
+        const [countRows]: any = await db.query(countQuery, countParams);
+        res.status(200).json({
+            success: true,
+            data: rows,
+            totalUsers: countRows[0].total_users
+        })
+
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "server error" });
     }
 }
@@ -91,6 +138,7 @@ export const editUser = async (req: Request, res: Response) => {
         }
         res.json({ message: "User updated successfully" });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: "server error" });
     }
 }

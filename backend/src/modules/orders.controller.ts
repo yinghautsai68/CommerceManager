@@ -13,8 +13,96 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const getOrders = async (req: Request, res: Response) => {
     try {
-        const [rows]: any = await db.query('SELECT * FROM  orders');
-        res.status(200).json({ success: true, data: rows });
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+        const paymentStatus = req.query.paymentStatus || "";
+        const shipmentStatus = req.query.shipmentStatus || "";
+        const search = req.query.search || "";
+
+        const offset = (page - 1) * limit;
+
+        let query = "SELECT * FROM ORDERS";
+        let filters = [];
+        let params = [];
+
+        if (paymentStatus) {
+            filters.push("payment_status =?");
+            params.push(paymentStatus);
+        }
+
+        if (shipmentStatus) {
+            filters.push("shipment_status = ?");
+            params.push(shipmentStatus);
+        }
+
+        if (search) {
+            filters.push("customer_name LIKE ? OR id LIKE ?");
+            //params.push(search, search);
+            params.push(`%${search}%`, `%${search}%`);
+        }
+
+        const whereClause = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
+
+
+        query = `SELECT * FROM orders ${whereClause} LIMIT ? OFFSET ?`;
+        params.push(limit, offset);
+
+
+        const [rows]: any = await db.query(query, params);
+
+        //Page COunt
+        const countQuery = `SELECT COUNT(*) AS total_orders FROM orders ${whereClause}`;
+        const countParams = params.slice(0, params.length - 2);
+        const [countRows]: any = await db.query(countQuery, countParams);
+
+
+        /*
+        let query = "SELECT * FROM orders WHERE 1=1";
+        let params = [];
+
+        if (paymentStatus) {
+            query += " AND  payment_status = ? ";
+            params.push(paymentStatus);
+        }
+        if (shipmentStatus) {
+            query += " AND shipment_status =?";
+            params.push(shipmentStatus);
+        }
+
+        query += " LIMIT ? OFFSET ?";
+        params.push(limit, offset);
+
+        const [rows]: any = await db.query(query, params);
+
+        let countQuery = "SELECT COUNT(*) AS total_orders FROM orders WHERE 1=1";
+        let countParams = [];
+
+        if (paymentStatus) {
+            countQuery += " AND payment_status = ?";
+            countParams.push(paymentStatus);
+        }
+
+        if (shipmentStatus) {
+            countQuery += " AND shipment_status = ?";
+            countParams.push(shipmentStatus);
+        }
+
+
+        const [countRows]: any = await db.query(countQuery, countParams);
+        */
+
+        /*
+        const [rows]: any = await db.query(
+            'SELECT * FROM  orders WHERE payment_status =? LIMIT ? OFFSET ? ',
+            [paymentStatus, limit, offset]
+ 
+        );
+ 
+        const [countRows]: any = await db.query(
+            "SELECT COUNT(*) AS total_orders FROM orders"
+        );
+        */
+        res.status(200).json({ success: true, data: rows, total: countRows[0] });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "server error!" });

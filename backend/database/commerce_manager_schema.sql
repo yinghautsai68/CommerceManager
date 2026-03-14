@@ -16,10 +16,28 @@ CREATE TABLE users(
  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-INSERT INTO users (password, name, email, phone, role, work, status) 
-VALUES('123456', '蔡英豪', 'yinghautsai68@gmail.com', '0903621669', 'worker', null, 'active');
-INSERT INTO users (password, name, email, phone, role, work, status) 
-VALUES('123456', '英豪', 'yinghautsai@gmail.com', '0903621668', 'worker', null, 'active');
+INSERT INTO users (password, name, email, phone, role, work, status) VALUES
+('123456', '王小明', 'user1@example.com', '0903621601', 'worker', 'developer', 'active'),
+('123456', '陳大華', 'user2@example.com', '0903621602', 'worker', 'desk', 'active'),
+('123456', '林美麗', 'user3@example.com', '0903621603', 'worker', 'developer', 'active'),
+('123456', '張志強', 'user4@example.com', '0903621604', 'worker', 'desk', 'inactive'),
+('123456', '李佳慧', 'user5@example.com', '0903621605', 'worker', 'developer', 'active'),
+('123456', '劉建國', 'user6@example.com', '0903621606', 'worker', 'desk', 'active'),
+('123456', '黃怡婷', 'user7@example.com', '0903621607', 'worker', 'developer', 'active'),
+('123456', '周宗翰', 'user8@example.com', '0903621608', 'worker', 'desk', 'inactive'),
+('123456', '徐婉婷', 'user9@example.com', '0903621609', 'worker', 'developer', 'active'),
+('123456', '謝明哲', 'user10@example.com', '0903621610', 'worker', 'desk', 'active'),
+('123456', '林志玲', 'user11@example.com', '0903621611', 'worker', 'developer', 'active'),
+('123456', '鄭凱文', 'user12@example.com', '0903621612', 'worker', 'desk', 'inactive'),
+('123456', '王婉如', 'user13@example.com', '0903621613', 'worker', 'developer', 'active'),
+('123456', '陳思穎', 'user14@example.com', '0903621614', 'worker', 'desk', 'active'),
+('123456', '李宗翰', 'user15@example.com', '0903621615', 'worker', 'developer', 'active'),
+('123456', '劉怡君', 'user16@example.com', '0903621616', 'worker', 'desk', 'inactive'),
+('123456', '黃志明', 'user17@example.com', '0903621617', 'worker', 'developer', 'active'),
+('123456', '周怡婷', 'user18@example.com', '0903621618', 'worker', 'desk', 'active'),
+('123456', '徐凱文', 'user19@example.com', '0903621619', 'worker', 'developer', 'active'),
+('123456', '謝怡婷', 'user20@example.com', '0903621620', 'worker', 'desk', 'inactive');
+
 
 DROP TABLE IF EXISTS products;
 CREATE TABLE IF NOT EXISTS products(
@@ -86,6 +104,39 @@ VALUES
 ('2026-03-09 09:50:00','paid','completed','張婷','0990123456','台中市南區公益路900號','宅配',80,40,2890,'感謝優惠'),
 ('2026-03-10 18:22:45','pending','pending','王志偉','0901122334','台北市大安區復興南路1000號','超商取貨',60,30,690,'單件購買');
 
+INSERT INTO orders (payment_status, shipment_status, customer_name, customer_number, customer_address, shipping_method, shipping_fee, tax, total_amount, remarks)
+VALUES
+('paid','completed','陳怡君','0911111111','台北市信義區松仁路1號','宅配',100,50,5120,'回購'),
+('paid','shipped','林志豪','0922222222','新北市新莊區幸福路22號','宅配',90,45,3680,'一般訂單'),
+('pending','pending','黃雅婷','0933333333','桃園市桃園區中正路33號','超商取貨',60,30,1990,'等待付款'),
+('paid','completed','張志強','0944444444','台中市北屯區崇德路44號','宅配',100,50,4580,'公司採購'),
+('paid','completed','吳佩玲','0955555555','高雄市三民區建國路55號','宅配',100,50,2580,''),
+('pending','pending','劉俊傑','0966666666','台南市安平區安平路66號','超商取貨',60,30,1890,'急件'),
+('paid','shipped','許雅雯','0977777777','新竹市東區光復路77號','宅配',100,50,2890,''),
+('paid','completed','楊宗翰','0988888888','台北市士林區中山北路88號','宅配',100,50,6900,'多件商品'),
+('paid','completed','鄭佳玲','0999999999','台中市西屯區台灣大道99號','宅配',100,50,3290,''),
+('pending','pending','郭志宏','0901111111','桃園市中壢區中央路11號','超商取貨',60,30,1990,''),
+
+('paid','completed','謝明哲','0902222222','高雄市苓雅區三多路22號','宅配',100,50,5200,''),
+('paid','shipped','曾婉婷','0903333333','台南市東區東門路33號','宅配',100,50,2990,''),
+('pending','pending','洪嘉宏','0904444444','台北市萬華區西園路44號','超商取貨',60,30,1290,''),
+('paid','completed','潘怡萱','0905555555','新北市中和區中山路55號','宅配',100,50,4290,''),
+('paid','completed','蕭冠宇','0906666666','台中市南屯區黎明路66號','宅配',100,50,2890,''),
+('paid','shipped','周佳慧','0907777777','新竹縣竹北市光明路77號','宅配',100,50,2590,''),
+('pending','pending','邱志偉','0908888888','桃園市龜山區文化路88號','超商取貨',60,30,1990,''),
+('paid','completed','賴怡婷','0909999999','台南市北區成功路99號','宅配',100,50,4590,''),
+('paid','completed','宋志豪','0910000000','台北市中山區南京東路','宅配',100,50,5990,''),
+('paid','completed','簡佩珊','0911111112','高雄市左營區博愛路','宅配',100,50,2990,''),
+
+('pending','pending','戴俊傑','0911111113','台中市北區學士路','超商取貨',60,30,1990,''),
+('paid','completed','羅佳琪','0911111114','新北市板橋區文化路','宅配',100,50,4890,''),
+('paid','completed','鍾偉倫','0911111115','桃園市平鎮區環南路','宅配',100,50,2690,''),
+('paid','completed','徐雅婷','0911111116','台南市永康區中華路','宅配',100,50,3690,''),
+('paid','shipped','江志宏','0911111117','台北市內湖區瑞光路','宅配',100,50,3190,''),
+('pending','pending','杜佩琪','0911111118','高雄市鳳山區青年路','超商取貨',60,30,1290,''),
+('paid','completed','葉志強','0911111119','台中市西區公益路','宅配',100,50,4290,''),
+('paid','completed','鄧怡君','0911111120','新竹市北區經國路','宅配',100,50,3890,''),
+('paid','completed','宋佳豪','0911111121','桃園市蘆竹區南崁路','宅配',100,50,4990,'');
 
 DROP TABLE IF EXISTS order_items;
 CREATE TABLE IF NOT EXISTS order_items(
@@ -117,7 +168,3 @@ VALUES
 (8, 3, 1, 0, 790),
 (9, 2, 1, 0, 2890),
 (10, 3, 1, 0, 690);
-
-INSERT INTO order_items (order_id, product_id, quantity, discount, sub_total)
-VALUES
-(1, 2, 1, 0, 1990),
