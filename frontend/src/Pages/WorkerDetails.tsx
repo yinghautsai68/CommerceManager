@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { SubTitle, Title } from '../components/Typography'
 import FormInput from '../components/FormInput'
 import { Button } from '../components/Button'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Form, useNavigate, useParams } from 'react-router-dom'
+import FormSelect from '../Components/FormSelect'
 
 interface formDataProps {
     name: string,
@@ -25,6 +26,36 @@ const WorkerDetails = () => {
         password: ""
     });
 
+    const roleOptions = [
+        {
+            label: "管理員", value: "admin",
+        },
+        {
+            label: "員工", value: "worker"
+        }
+    ]
+    const workOptions = [
+        {
+            label: "未配分", value: "d"
+        },
+        {
+            label: "客服", value: "desk"
+        },
+        {
+            label: "開發工程師", value: "developer"
+        },
+
+    ]
+
+    const statusOptions = [
+        {
+            label: "在職", value: "active",
+        },
+        {
+            label: "離職", value: "inactive",
+        },
+
+    ]
 
 
     const { id } = useParams<{ id: string }>();
@@ -46,7 +77,7 @@ const WorkerDetails = () => {
     }
     useEffect(() => { if (id) { fetchWorker() } }, []);
 
-    const handlechange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
@@ -126,17 +157,15 @@ const WorkerDetails = () => {
                 </div>
             }
             <form onSubmit={handleSubmit} className='flex flex-col gap-5 xl:w-[70%] px-2 overflow-auto'>
-                <FormInput name='name' label='員工姓名' type='text' value={formData.name} handleChange={handlechange} readOnly={!isEditing} />
-                <FormInput name='email' label='電子郵件' type='text' value={formData.email} handleChange={handlechange} readOnly={!isEditing} />
-                <FormInput name='phone' label='連絡電話' type='text' value={formData.phone} handleChange={handlechange} readOnly={!isEditing} />
-                <FormInput name='role' label='角色' type='text' value={formData.role} handleChange={handlechange} readOnly={!isEditing} />
-                <FormInput name='work' label='工作崗位' type='text' value={formData.work} handleChange={handlechange} readOnly={!isEditing} />
-                <FormInput name='status' label='狀態' type='text' value={formData.status} handleChange={handlechange} readOnly={!isEditing} />
+                <FormInput name='name' label='員工姓名' type='text' value={formData.name} handleChange={handleChange} readOnly={!isEditing} />
+                <FormInput name='email' label='電子郵件' type='text' value={formData.email} handleChange={handleChange} readOnly={!isEditing} />
+                <FormInput name='phone' label='連絡電話' type='text' value={formData.phone} handleChange={handleChange} readOnly={!isEditing} />
+                <FormSelect name='role' label='角色' value={formData.role} options={roleOptions} handleChange={handleChange} isEditing={isEditing} />
+                <FormSelect name='work' label='工作崗位' value={formData.work} options={workOptions} handleChange={handleChange} isEditing={isEditing} />
+                <FormSelect name='status' label='狀態' value={formData.status} options={statusOptions} handleChange={handleChange} isEditing={isEditing} />
                 {
                     isEditing &&
-                    < FormInput name='password' label='密碼' type='password' value={formData.password} handleChange={handlechange} readOnly={!isEditing} />
-
-
+                    < FormInput name='password' label='密碼' type='password' value={formData.password} handleChange={handleChange} readOnly={!isEditing} />
                 }
                 {
                     isEditing &&

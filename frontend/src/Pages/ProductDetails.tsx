@@ -19,7 +19,7 @@ const ProductDetails = () => {
         description: "",
         price: 0,
         stock: 0,
-        status: "",
+        status: 'active',
         image_url: "DFASDF",
         created_at: "",
         updated_at: ""
@@ -51,19 +51,24 @@ const ProductDetails = () => {
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type } = e.target;
+        const { name, value } = e.target;
 
-        setFormdata((prev) => ({ ...prev, [name]: type === 'number' ? Number(value) : value }));
+        setFormdata((prev) => ({ ...prev, [name]: value }));
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const payload = {
+            ...formData,
+            price: Number(formData.price),
+            stock: Number(formData.stock)
+        }
         try {
             const response = await fetch(id ? `http://localhost:5000/api/products/${id}` : `http://localhost:5000/api/products`, {
                 method: id ? 'PATCH' : 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             })
             const result = await response.json();
             if (!result.success) {
