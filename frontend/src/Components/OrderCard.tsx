@@ -27,7 +27,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
             </div>
             <div className='flex flex-row justify-between items-center'>
                 <span className='font-semibold text-gray-500 '>{formatDate(order.order_date)}</span>
-                <span className='font-semibold'>--- 件</span>
+                <span className='font-semibold'>{order.total_items} 件</span>
                 <span className='font-semibold'>NT$ {order.total_amount}</span>
             </div>
         </Card>

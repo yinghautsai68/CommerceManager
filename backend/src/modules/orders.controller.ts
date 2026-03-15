@@ -44,8 +44,11 @@ export const getOrders = async (req: Request, res: Response) => {
         const whereClause = filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : "";
 
 
-        query = `SELECT * FROM orders ${whereClause} LIMIT ? OFFSET ?`;
+        //query = `SELECT * FROM orders ${whereClause} LIMIT ? OFFSET ? `;
+        query = `SELECT orders.*, SUM(order_items.quantity) AS total_items FROM orders ${whereClause} JOIN order_items ON orders.id = order_items.order_id GROUP BY orders.id LIMIT ? OFFSET ? `
         params.push(limit, offset);
+
+        //get order items
 
 
         const [rows]: any = await db.query(query, params);

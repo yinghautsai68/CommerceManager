@@ -35,7 +35,7 @@ export interface Order {
     shipping_method: string,
     shipping_fee: number,
     tax: number,
-    total_items?: number,
+    total_items: number,
     total_amount: number,
     remarks: string,
 
