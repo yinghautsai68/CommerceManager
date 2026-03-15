@@ -15,7 +15,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     return (
         <Card className='flex flex-row items-center w-full xl:w-[80%]  md:pr-10 hover:bg-gray-200 transition-all duration-300 '>
             <div className='flex flex-row justify-between items-center gap-2 w-[70%] '>
-                <img src={Sony} alt="" className='w-[20%] xl:w-[15%] aspect-square border border-gray-300' />
+                <img src={product.image_url} alt="" className='w-[20%] xl:w-[15%] aspect-square object-cover border border-gray-300' />
                 <div className='flex flex-col justify-between items-start w-[80%] h-full text-sm lg:text-base   '>
                     <div className='flex flex-col items-start '>
                         <span className=' '>商品編號 #{product.id}</span>

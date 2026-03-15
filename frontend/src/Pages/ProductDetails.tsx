@@ -11,7 +11,7 @@ const ProductDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
-    const [formData, setFormdata] = useState<Product>({
+    const [formData, setFormData] = useState<Product>({
         id: 0,
         sku: "",
         name: "",
@@ -41,7 +41,7 @@ const ProductDetails = () => {
                     return console.log(result.message);
                 }
                 console.log(result.data);
-                setFormdata({ ...result.data, price: Number(result.data.price), stock: Number(result.data.stock) });
+                setFormData({ ...result.data, price: Number(result.data.price), stock: Number(result.data.stock) });
             } catch (error) {
                 console.log(error);
             }
@@ -53,7 +53,7 @@ const ProductDetails = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
-        setFormdata((prev) => ({ ...prev, [name]: value }));
+        setFormData((prev) => ({ ...prev, [name]: value }));
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -85,6 +85,33 @@ const ProductDetails = () => {
         }
     }
 
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return;
+        }
+        const file = e.target.files[0];
+
+        const formDataImage = new FormData();
+        formDataImage.append("image", file);
+
+        try {
+            const response = await fetch("http://localhost:5000/api/upload", {
+                method: "POST",
+                body: formDataImage
+            })
+            const result = await response.json();
+            if (!result.success) {
+                return console.log(result.message);
+            }
+
+            console.log(result.imageUrl)
+            setFormData((prev) => ({ ...prev, image_url: result.imageUrl }));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
     const handleDelete = async () => {
         try {
             const response = await fetch(`http://localhost:5000/api/products/${id}`, {
@@ -101,6 +128,9 @@ const ProductDetails = () => {
             console.log(error);
         }
     }
+
+
+    useEffect(() => { console.log(formData) }, [formData]);
     return (
         <div className='flex flex-col gap-5 px-2 md:px-10'>
             <div className='flex flex-row'>
@@ -149,13 +179,15 @@ const ProductDetails = () => {
                 <div className='flex flex-col gap-2 lg:w-[80%] xl:w-[50%]'>
                     <SubTitle className='lg:text-xl font-semibold text-gray-500 '>照片</SubTitle>
                     <div className='grid grid-cols-5 gap-1  '>
-                        <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
-                        <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
-                        <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
-                        <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
-                        <img src={Sony} alt="" className=' aspect-square border border-gray-300 rounded-lg' />
+
+                        <img src={formData.image_url} alt="" className=' aspect-square object-cover border border-gray-300 rounded-lg' />
+
                     </div>
-                    <input type="file" className='pl-5 py-1 border border-gray-300 rounded-lg' />
+                    {
+                        isEditing &&
+                        <input type="file" onChange={handleImageUpload} className='pl-5 py-1 border border-gray-300 rounded-lg' />
+                    }
+
                 </div>
 
                 {
