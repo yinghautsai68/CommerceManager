@@ -16,6 +16,9 @@ CREATE TABLE users(
  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+ALTER TABLE users
+ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+
 INSERT INTO users (password, name, email, phone, role, work, status) VALUES
 ('123456', '王小明', 'user1@example.com', '0903621601', 'worker', 'developer', 'active'),
 ('123456', '陳大華', 'user2@example.com', '0903621602', 'worker', 'desk', 'active'),

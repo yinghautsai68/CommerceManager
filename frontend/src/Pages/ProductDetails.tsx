@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SubTitle, Title } from '../components/Typography'
 import { Button } from '../components/Button'
 import FormInput from '../components/FormInput'
@@ -7,7 +7,10 @@ import Sony from '../assets/sony_wh1000xm4.jpg'
 import { useNavigate, useParams } from 'react-router-dom'
 import type { Product } from '../types/types'
 import FormSelect from '../Components/FormSelect'
+import { UtilsContext } from '../context/UtilsContext'
 const ProductDetails = () => {
+    const { formatDate } = useContext(UtilsContext);
+
     const navigate = useNavigate();
     const { id } = useParams();
     const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -131,6 +134,8 @@ const ProductDetails = () => {
 
 
     useEffect(() => { console.log(formData) }, [formData]);
+
+
     return (
         <div className='flex flex-col gap-5 px-2 md:px-10'>
             <div className='flex flex-row'>
@@ -153,19 +158,18 @@ const ProductDetails = () => {
 
             </div>
 
-            {
-                id &&
-                <div className='flex flex-row  items-center gap-20'>
-                    <div className='flex flex-col '>
-                        <span className='text-gray-500'>創建時間</span>
-                        <span className='-translate-y-2'>{formData.created_at}</span>
-                    </div>
-                    <div className='flex flex-col '>
-                        <span className='text-gray-500'>創建時間</span>
-                        <span className='-translate-y-2'>{formData.updated_at}</span>
-                    </div>
+
+            <div className='flex flex-row  items-center gap-20'>
+                <div className='flex flex-col '>
+                    <span className='text-gray-500'>創建時間</span>
+                    <span className='-translate-y-2'>{formatDate(formData.created_at)}</span>
                 </div>
-            }
+                <div className='flex flex-col '>
+                    <span className='text-gray-500'>創建時間</span>
+                    <span className='-translate-y-2'>{formatDate(formData.updated_at)}</span>
+                </div>
+            </div>
+
 
             <form onSubmit={handleSubmit} className='flex flex-col gap-4 xl:w-[70%]'>
                 <FormInput name='name' label='商品名稱' value={formData.name} handleChange={handleChange} type='text' readOnly={!isEditing} />

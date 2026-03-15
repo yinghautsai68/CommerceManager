@@ -98,7 +98,7 @@ export const getUsers = async (req: Request, res: Response) => {
 export const getUser = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const [rows]: any = await db.query('SELECT name, email, phone, role, work, status FROM users where id =? ',
+        const [rows]: any = await db.query('SELECT name, email, phone, role, work, status, created_at, updated_at FROM users where id =? ',
             [id]
         );
         console.log(rows);

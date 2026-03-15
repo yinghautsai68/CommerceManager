@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { SubTitle, Title } from '../components/Typography'
 import { Button } from '../components/Button'
 import { Card } from '../components/Card'
@@ -8,7 +8,10 @@ import Sony from '../assets/sony_wh1000xm4.jpg'
 import OrdersProductCard from '../components/OrdersProductCard'
 import { useParams } from 'react-router-dom'
 import type { Order, OrderItems } from '../types/types'
+import { UtilsContext } from '../context/UtilsContext'
 const OrderDetails = () => {
+    const { formatDate } = useContext(UtilsContext);
+
     const { id } = useParams();
     const [order, setOrder] = useState<Order>({
         id: 0,
@@ -89,7 +92,7 @@ const OrderDetails = () => {
                 <Card className='flex flex-col gap-2 px-4 py-6'>
                     <SubTitle className=''>訂單基本資訊</SubTitle>
                     <div className=''>
-                        <Details label="訂單日期" value={order.order_date} />
+                        <Details label="訂單日期" value={formatDate(order.order_date)} />
                         <Details label="付款狀態" value={order.payment_status} />
                         <Details label="出貨狀態" value={order.shipment_status} />
                         <Details label="訂單總金額" value={order.total_amount} />

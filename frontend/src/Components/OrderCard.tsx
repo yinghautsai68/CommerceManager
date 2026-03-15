@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Card } from './Card'
 import { Button } from './Button'
 import PaymentStatus from './PaymentStatus'
 import ShipmentStatus from './ShipmentStatus'
 import type { Order } from '../types/types'
+import { UtilsContext } from '../context/UtilsContext'
 
 interface OrderCardProps {
     order: Order
 }
 const OrderCard = ({ order }: OrderCardProps) => {
+    const { formatDate } = useContext(UtilsContext);
+
     return (
         <Card className='flex flex-col gap-1 w-full xl:w-[80%]  px-3'>
             <div className='flex flex-row justify-between items-end'>
@@ -23,7 +26,7 @@ const OrderCard = ({ order }: OrderCardProps) => {
                 </div>
             </div>
             <div className='flex flex-row justify-between items-center'>
-                <span className='font-semibold text-gray-500 '>{order.order_date}</span>
+                <span className='font-semibold text-gray-500 '>{formatDate(order.order_date)}</span>
                 <span className='font-semibold'>--- 件</span>
                 <span className='font-semibold'>NT$ {order.total_amount}</span>
             </div>
