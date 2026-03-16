@@ -24,6 +24,7 @@ const Orders = () => {
             name: "paymentStatus",
             value: paymentStatus,
             options: [
+                { label: '付款狀態', value: '' },
                 { label: '未付款', value: 'pending' },
                 { label: '已付款', value: 'paid' },
                 { label: '退款', value: 'Refund' },
@@ -33,6 +34,7 @@ const Orders = () => {
             name: "shipmentStatus",
             value: shipmentStatus,
             options: [
+                { label: '出貨狀態', value: '' },
                 { label: '未出貨', value: 'pending' },
                 { label: '已出貨', value: 'shipped' },
                 { label: '已送達', value: 'completed' },
@@ -44,7 +46,7 @@ const Orders = () => {
     const [totalPages, setTotalPages] = useState(0);
     const fetchOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&shipmentStatus=${shipmentStatus}&search=${search}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&shipmentStatus=${shipmentStatus}&search=${search}`, {
                 method: 'GET'
             })
             const result = await response.json();
