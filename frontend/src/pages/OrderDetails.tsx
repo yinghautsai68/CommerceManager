@@ -26,6 +26,7 @@ const OrderDetails = () => {
         shipping_fee: 0,
         tax: 0,
         total_amount: 0,
+        total_items: 0,
         remarks: ""
     });
 
