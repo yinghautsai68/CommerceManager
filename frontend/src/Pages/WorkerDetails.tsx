@@ -3,7 +3,7 @@ import { SubTitle, Title } from '../components/Typography'
 import FormInput from '../components/FormInput'
 import { Button } from '../components/Button'
 import { Form, useNavigate, useParams } from 'react-router-dom'
-import FormSelect from '../Components/FormSelect'
+import FormSelect from '../components/FormSelect'
 import { UtilsContext } from '../context/UtilsContext'
 
 interface formDataProps {

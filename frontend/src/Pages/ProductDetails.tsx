@@ -6,7 +6,7 @@ import FormInput from '../components/FormInput'
 import Sony from '../assets/sony_wh1000xm4.jpg'
 import { useNavigate, useParams } from 'react-router-dom'
 import type { Product } from '../types/types'
-import FormSelect from '../Components/FormSelect'
+import FormSelect from '../components/FormSelect'
 import { UtilsContext } from '../context/UtilsContext'
 const ProductDetails = () => {
     const token = localStorage.getItem("token");
