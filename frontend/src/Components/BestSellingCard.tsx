@@ -20,7 +20,7 @@ export const BestSellingCard = ({ product, rank }: BestSellingCardProps) => {
         <div className='flex flex-row justify-between items-center px-2 py-2 border-b border-gray-300 '>
             <div className='flex-4 flex flex-row items-center gap-2'>
                 <span className={`${rankMap[rank]} text-sm`}>Top {rank}</span>
-                <img src={Sony} className='w-10 aspect-square border border-gray-300' alt="" />
+                <img src={product.image_url} className='w-10 aspect-square border border-gray-300' alt="" />
                 <div className='flex flex-col justify-center items-start'>
                     <span className='text-xs '>{product.name}</span>
                     <span className='text-xs'>NT$ {product.price}</span>

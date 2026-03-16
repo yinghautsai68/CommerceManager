@@ -9,11 +9,13 @@ import type { Product } from '../types/types'
 import FormSelect from '../Components/FormSelect'
 import { UtilsContext } from '../context/UtilsContext'
 const ProductDetails = () => {
+    const token = localStorage.getItem("token");
+
     const { formatDate } = useContext(UtilsContext);
 
     const navigate = useNavigate();
     const { id } = useParams();
-    const [isEditing, setIsEditing] = useState<boolean>(false);
+    const [isEditing, setIsEditing] = useState<boolean>(!id);
     const [formData, setFormData] = useState<Product>({
         id: 0,
         sku: "",
@@ -69,19 +71,25 @@ const ProductDetails = () => {
             const response = await fetch(id ? `http://localhost:5000/api/products/${id}` : `http://localhost:5000/api/products`, {
                 method: id ? 'PATCH' : 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    "Authorization": `Bearer ${token}`
                 },
                 body: JSON.stringify(payload)
             })
             const result = await response.json();
             if (!result.success) {
-                return console.log(result.message);
+
+                alert(result.message);
+                console.log(token);
+                console.log(result.message);
+                return;
             }
             if (id) {
                 alert("Edited product successfulyl!");
             } else if (!id) {
                 alert("Created product successfulyl!");
             }
+
             navigate('/products')
         } catch (error) {
             console.log(error);

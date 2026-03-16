@@ -14,7 +14,7 @@ import WorkerDetails from './pages/WorkerDetails'
 const App = () => {
   return (
     <Routes>
-      <Route path='/' element={<Navigate to='/dashboard'></Navigate>} />
+      <Route path='/' element={<Navigate to='/login'></Navigate>} />
       <Route path='/register' element={<Register />} />
       <Route path='/login' element={<Login />} />
       <Route path='/dashboard' element={<DashboardLayout><Dashboard /></DashboardLayout>} />

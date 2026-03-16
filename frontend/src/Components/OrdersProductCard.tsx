@@ -9,7 +9,7 @@ interface OrdersProductCardProps {
 const OrdersProductCard = ({ orderItem }: OrdersProductCardProps) => {
     return (
         <div className='flex flex-row items-center justify-between lg:justify-start gap-2 py-1 border-b border-gray-300 '>
-            <img src={Sony} alt="" className='w-[20%] md:w-[15%] lg:w-[15%] xl:w-[12%]  aspect-square border border-gray-300 rounded-lg' />
+            <img src={orderItem.image_url} alt="" className='w-[20%] md:w-[15%] lg:w-[15%] xl:w-[12%]  aspect-square border border-gray-300 rounded-lg' />
             <div className=' flex flex-col  gap-1 w-[75%] lg:w-full h-full  '>
                 <div className='flex flex-col'>
                     <span className="translate-y-1 w-[100%] text-md font-medium truncate ">

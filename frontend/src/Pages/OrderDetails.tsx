@@ -9,6 +9,8 @@ import OrdersProductCard from '../components/OrdersProductCard'
 import { useParams } from 'react-router-dom'
 import type { Order, OrderItems } from '../types/types'
 import { UtilsContext } from '../context/UtilsContext'
+import PaymentStatus from '../components/PaymentStatus'
+import ShipmentStatus from '../components/ShipmentStatus'
 const OrderDetails = () => {
     const { formatDate } = useContext(UtilsContext);
 
@@ -93,8 +95,8 @@ const OrderDetails = () => {
                     <SubTitle className=''>訂單基本資訊</SubTitle>
                     <div className=''>
                         <Details label="訂單日期" value={formatDate(order.order_date)} />
-                        <Details label="付款狀態" value={order.payment_status} />
-                        <Details label="出貨狀態" value={order.shipment_status} />
+                        <Details label="付款狀態" value={<PaymentStatus status={order.payment_status} />} />
+                        <Details label="出貨狀態" value={<ShipmentStatus status={order.shipment_status} />} />
                         <Details label="訂單總金額" value={order.total_amount} />
                     </div>
                 </Card>

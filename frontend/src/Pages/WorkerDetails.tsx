@@ -35,6 +35,9 @@ const WorkerDetails = () => {
 
     const roleOptions = [
         {
+            label: "", value: "",
+        },
+        {
             label: "管理員", value: "admin",
         },
         {
@@ -43,7 +46,7 @@ const WorkerDetails = () => {
     ]
     const workOptions = [
         {
-            label: "未配分", value: "d"
+            label: "未配分", value: ""
         },
         {
             label: "客服", value: "desk"
@@ -55,6 +58,9 @@ const WorkerDetails = () => {
     ]
 
     const statusOptions = [
+        {
+            label: "", value: "",
+        },
         {
             label: "在職", value: "active",
         },
@@ -74,8 +80,8 @@ const WorkerDetails = () => {
                 method: 'GET'
             });
             const result = await response.json();
-            if (!result.ok) {
-                console.log(result.message);
+            if (!result.success) {
+                return console.log(result.message);
             }
             setFormData(result.data);
             console.log(result.data);
@@ -98,7 +104,7 @@ const WorkerDetails = () => {
 
             const result = await response.json();
             if (!result.ok) {
-                console.log(result.message);
+                return console.log(result.message);
             }
             console.log(result.message);
             alert(result.message);
@@ -113,18 +119,19 @@ const WorkerDetails = () => {
         e.preventDefault();
         try {
             const response = await fetch(!!id ? `http://localhost:5000/api/users/${id}` : 'http://localhost:5000/api/users', {
-                method: !!id ? 'PATCH' : 'POST',
+                method: id ? 'PATCH' : 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
             })
             const result = await response.json();
-            if (!result.ok) {
-                console.log(result.message);
+            if (!result.success) {
+                return console.log(result.message);
             }
             console.log(result.message);
             if (!id) {
+                alert("Worker successfully added!");
                 setFormData({
                     name: "",
                     email: "",
@@ -136,7 +143,8 @@ const WorkerDetails = () => {
                     created_at: "",
                     updated_at: ""
                 })
-            } else if (!!id) {
+            } else if (id) {
+                alert("Worker successfully edited!");
                 setIsEditing(false);
             }
         } catch (error) {

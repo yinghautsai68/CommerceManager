@@ -5,6 +5,10 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { env } from "../config/env";
 
+interface AuthRequest extends Request {
+    user?: any;
+}
+
 export const register = async (req: Request, res: Response) => {
     const result = registerSchema.safeParse(req.body);
     if (!result.success) {
@@ -49,10 +53,10 @@ export const login = async (req: Request, res: Response) => {
 
         // Checke username exist
         const [rows]: any = await db.execute(
-            "SELECT id, password FROM users where username =?",
+            "SELECT id, password, role FROM users where name =?",
             [username]
         );
-        if (rows === 0) {
+        if (rows.length === 0) {
             return res.status(400).json({ message: "username does not exists!" });
         }
 
@@ -64,11 +68,21 @@ export const login = async (req: Request, res: Response) => {
 
         // Generate Token
         const token = jwt.sign(
-            { id: rows[0].id }, env.JWT_SECRET as string, { expiresIn: "1hr" }
+            { id: rows[0].id, role: rows[0].role }, env.JWT_SECRET as string, { expiresIn: "1h" }
         );
 
-        res.status(200).json({ message: "Login successful!", token })
+        res.status(200).json({ message: "Login successful!", token, payload: { id: rows[0].id, role: rows[0].role } })
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: error });
+    }
+}
+
+export const getMe = async (req: AuthRequest, res: Response) => {
+    try {
+        res.status(200).json({ data: req.user });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Server error!" });
     }
 }

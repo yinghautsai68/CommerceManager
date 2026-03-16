@@ -2,6 +2,7 @@ import React from 'react'
 import { Card } from './Card'
 
 import type { Worker } from '../types/types';
+import { SubTitle } from './Typography';
 interface WorkerCardProps {
     worker: Worker;
 }
@@ -36,7 +37,7 @@ const WorkerCard = ({ worker }: WorkerCardProps) => {
                     <span className='xl:text-lg font-bold'>{worker.name}</span>
                 </div>
                 <div className='flex flex-col'>
-                    <div className='flex flex-row justify-center px-1 bg-green-300'>
+                    <div className={`${worker.status === 'active' ? 'bg-green-300' : 'bg-red-400'} flex flex-row justify-center px-1 `}>
                         <span className=' text-sm xl:text-lg text-white font-medium' >{statusMap[worker.status]}</span>
                     </div>
                     <span className='font-bold'>{workMap[worker.work] || "未分配"}</span>

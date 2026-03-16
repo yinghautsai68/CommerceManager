@@ -1,8 +1,9 @@
 import express from "express";
 import { createProduct, editProduct, getProduct, getProducts, deleteProduct, getLowStockProducts, getTopSellingProducts } from "./products.controller";
+import { protect } from "../middleware/auth";
 const router = express.Router();
 
-router.post('/', createProduct);
+router.post('/', protect(['admin']), createProduct);
 router.get('/', getProducts);
 router.get('/low-stock', getLowStockProducts);
 router.get('/top-selling', getTopSellingProducts);

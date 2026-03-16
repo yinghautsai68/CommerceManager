@@ -136,7 +136,7 @@ export const editUser = async (req: Request, res: Response) => {
         if (updateResult.affectedRows === 0) {
             return res.status(404).json({ message: "User not found" });
         }
-        res.json({ message: "User updated successfully" });
+        res.status(200).json({ success: true, message: "User updated successfullys" });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "server error" });

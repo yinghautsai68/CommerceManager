@@ -5,11 +5,12 @@ import { LineChart, Line, XAxis, YAxis, Area, ResponsiveContainer, CartesianGrid
 import { SubTitle, Title } from '../components/Typography';
 import { Card } from '../components/Card';
 
-import Sony from '../assets/sony_wh1000xm4.jpg'
+
 import { BestSellingCard } from '../components/BestSellingCard';
 import { LatestOrderCard } from '../components/LatestOrderCard';
 import LowStockCard from '../components/LowStockCard';
 import type { Order, Product } from '../types/types';
+
 
 const data = [
     { month: 'Jan', revenue: 24000 },
@@ -29,6 +30,9 @@ const data = [
 
 
 const Dashboard = () => {
+
+
+
     //KPI CARDS
     const [totalRevenue, setTotalRevenue] = useState<number>(0);
     const fetchTotalRevenue = async () => {
@@ -186,38 +190,35 @@ const Dashboard = () => {
             </div>
 
 
-            {/*Monthly Trends */}
-            <Card className='flex flex-col gap-3 px-3 py-5'>
-                <SubTitle className='w-full '>收入趨勢圖</SubTitle>
-                <ResponsiveContainer width="100%" height={200}>
-                    <AreaChart data={revenueByDate}>
-                        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                        <XAxis dataKey="date" tick={{ fontSize: 15 }} tickFormatter={(date) => date.slice(5, 10)} />
-                        <YAxis width="auto" tick={{ fontSize: 15 }} tickFormatter={(value) => value / 1000 + "k"} />
-                        <Tooltip />
-                        <Area type="monotone" dataKey="revenue" stroke="#8884d8" fill="rgba(136, 132, 216, 0.3)" />
-                    </AreaChart>
-                </ResponsiveContainer>
-            </Card>
+
+            <div className='flex  flex-col lg:flex-row gap-3 lg:h-90'>
+                <Card className='flex flex-col gap-3 h-80 lg:h-full px-3 py-5'>
+                    <SubTitle className='w-full '>收入趨勢圖</SubTitle>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={revenueByDate}>
+                            <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                            <XAxis dataKey="date" tick={{ fontSize: 15 }} tickFormatter={(date) => date.slice(5, 10)} />
+                            <YAxis width="auto" tick={{ fontSize: 15 }} tickFormatter={(value) => value / 1000 + "k"} />
+                            <Tooltip />
+                            <Area type="monotone" dataKey="revenue" stroke="#8884d8" fill="rgba(136, 132, 216, 0.3)" />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </Card>
+                <Card className='flex flex-col gap-2 px-4 pt-5'>
+                    <SubTitle>熱銷商品</SubTitle>
+                    <div className='flex flex-col w-full '>
+                        {
+                            topSelllingProducts.map((item, index) => {
+                                return (
+                                    <BestSellingCard product={item} rank={index + 1} key={index} />
+                                )
+                            })
+                        }
+                    </div>
+                </Card>
+            </div>
 
 
-
-
-            {/*Order Table*/}
-            <Card className='flex flex-col gap-2 px-4 pt-5'>
-                <SubTitle>熱銷商品</SubTitle>
-                <div className='flex flex-col w-full '>
-                    {
-                        topSelllingProducts.map((item, index) => {
-                            return (
-                                <BestSellingCard product={item} rank={index + 1} key={index} />
-                            )
-                        })
-                    }
-
-
-                </div>
-            </Card>
 
             {
                 /*
@@ -248,8 +249,6 @@ const Dashboard = () => {
                             )
                         })
                     }
-
-
                 </div>
             </Card>
 
