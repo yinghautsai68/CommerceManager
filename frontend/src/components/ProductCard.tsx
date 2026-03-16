@@ -1,9 +1,4 @@
-import React from 'react'
 import { Card } from './Card'
-
-
-import Sony from '../assets/sony_wh1000xm4.jpg'
-import PaymentStatus from './PaymentStatus'
 import { Button } from './Button'
 import ActiveStatus from './ActiveStatus'
 import type { Product } from '../types/types'

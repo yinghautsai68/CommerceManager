@@ -1,5 +1,3 @@
-import React from 'react'
-
 type status = 'active' | 'archived';
 interface ActiveStatusProps {
     className?: string,
@@ -17,8 +15,8 @@ const classNameMap = {
 }
 const ActiveStatus = ({ className, status }: ActiveStatusProps) => {
     return (
-        <div className={`${classNameMap[status]} flex flex-row items-center px-2 py-2 `}>
-            <span className=' text-white'>{activeStatusMap[status]}</span>
+        <div className={`${classNameMap[status]} flex flex-row items - center px - 2 py - 2 `}>
+            <span className={`${className} text-white`}>{activeStatusMap[status]}</span>
         </div>
     )
 }

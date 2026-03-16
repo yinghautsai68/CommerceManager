@@ -1,6 +1,3 @@
-import React from 'react'
-import img from '../assets/sony_wh1000xm4.jpg'
-
 interface ListItemProps {
     isActive?: boolean,
     className?: string,

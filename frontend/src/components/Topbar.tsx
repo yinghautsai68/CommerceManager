@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Topbar = () => {
     return (
         <div className='w-full h-[15%] border'>

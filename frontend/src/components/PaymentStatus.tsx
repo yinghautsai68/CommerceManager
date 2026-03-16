@@ -1,7 +1,3 @@
-import React from 'react'
-
-
-
 type PaymentStatusType = 'paid' | 'pending' | 'failed';
 interface PaymentStatusProps {
     status: PaymentStatusType

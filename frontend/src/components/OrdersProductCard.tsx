@@ -1,6 +1,3 @@
-import React from 'react'
-
-import Sony from '../assets/sony_wh1000xm4.jpg'
 import type { OrderItems } from '../types/types'
 
 interface OrdersProductCardProps {

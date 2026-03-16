@@ -1,5 +1,5 @@
 import React from 'react'
-import type { Order } from '../types/types'
+\
 
 interface DetailsProps {
     label: string,

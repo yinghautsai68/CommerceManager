@@ -1,5 +1,3 @@
-import React from 'react'
-
 type ShipmentStatus = 'pending' | 'shipped' | 'completed' | 'cancelled';
 interface ShipmentStatusProps {
     status: ShipmentStatus

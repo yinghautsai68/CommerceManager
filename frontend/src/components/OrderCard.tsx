@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { Card } from './Card'
-import { Button } from './Button'
 import PaymentStatus from './PaymentStatus'
 import ShipmentStatus from './ShipmentStatus'
 import type { Order } from '../types/types'

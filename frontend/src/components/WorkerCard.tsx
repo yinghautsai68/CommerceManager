@@ -1,8 +1,5 @@
-import React from 'react'
 import { Card } from './Card'
-
 import type { Worker } from '../types/types';
-import { SubTitle } from './Typography';
 interface WorkerCardProps {
     worker: Worker;
 }

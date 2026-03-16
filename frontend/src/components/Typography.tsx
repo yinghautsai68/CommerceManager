@@ -1,5 +1,4 @@
 import React from 'react'
-import { classicNameResolver } from 'typescript'
 
 interface TitleProps {
     children: React.ReactNode,
