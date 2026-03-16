@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import KPICard from '../components/KPICard'
 
-import { LineChart, Line, XAxis, YAxis, Area, ResponsiveContainer, CartesianGrid, Tooltip, AreaChart } from 'recharts'
+import { XAxis, YAxis, Area, ResponsiveContainer, CartesianGrid, Tooltip, AreaChart } from 'recharts'
 import { SubTitle, Title } from '../components/Typography';
 import { Card } from '../components/Card';
 
@@ -11,27 +11,7 @@ import { LatestOrderCard } from '../components/LatestOrderCard';
 import LowStockCard from '../components/LowStockCard';
 import type { Order, Product } from '../types/types';
 
-
-const data = [
-    { month: 'Jan', revenue: 24000 },
-    { month: 'Feb', revenue: 25000 },
-    { month: 'Mar', revenue: 24500 },
-    { month: 'Apr', revenue: 10000 },
-    { month: 'May', revenue: 11000 },
-    { month: 'Jun', revenue: 13000 },
-    { month: 'Jul', revenue: 9000 },
-    { month: 'Aug', revenue: 17000 },
-    { month: 'Sep', revenue: 19000 },
-    { month: 'Oct', revenue: 16000 },
-    { month: 'Nov', revenue: 26000 },
-    { month: 'Dec', revenue: 32000 },
-];
-
-
-
 const Dashboard = () => {
-
-
 
     //KPI CARDS
     const [totalRevenue, setTotalRevenue] = useState<number>(0);

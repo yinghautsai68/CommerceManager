@@ -3,7 +3,7 @@ import { SubTitle, Title } from '../components/Typography'
 import { Button } from '../components/Button'
 import FormInput from '../components/FormInput'
 
-import Sony from '../assets/sony_wh1000xm4.jpg'
+
 import { useNavigate, useParams } from 'react-router-dom'
 import type { Product } from '../types/types'
 import FormSelect from '../components/FormSelect'
@@ -55,7 +55,7 @@ const ProductDetails = () => {
     }
 
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
 
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -205,7 +205,7 @@ const ProductDetails = () => {
                 {
                     isEditing &&
                     <div className='flex flex-row justify-end items-center'>
-                        <Button type='submit' className='px-5'>{id ? '儲存' : '新增商品'}</Button>
+                        <Button className='px-5'>{id ? '儲存' : '新增商品'}</Button>
                     </div>
                 }
 

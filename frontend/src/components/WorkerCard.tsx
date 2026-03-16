@@ -4,20 +4,16 @@ interface WorkerCardProps {
     worker: Worker;
 }
 
-interface StatusMapProps {
-    active: string,
-    inactive: string
-}
 const WorkerCard = ({ worker }: WorkerCardProps) => {
-    const roleMap = {
+    const roleMap: Record<'admin' | 'worker', string> = {
         admin: '管理員',
         worker: '員工'
     }
-    const workMap = {
+    const workMap: Record<'desk' | 'developer', string> = {
         desk: "櫃台",
         developer: "工程師"
     }
-    const statusMap: StatusMapProps = {
+    const statusMap: Record<'active' | 'inactive', string> = {
         active: "在職",
         inactive: "離職"
     };

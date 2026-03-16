@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { SubTitle, Title } from '../components/Typography'
+import { useContext, useEffect, useState } from 'react'
+import { SubTitle } from '../components/Typography'
 import { Button } from '../components/Button'
 import { Card } from '../components/Card'
 import Details from '../components/Details'
 
-import Sony from '../assets/sony_wh1000xm4.jpg'
 import OrdersProductCard from '../components/OrdersProductCard'
 import { useParams } from 'react-router-dom'
 import type { Order, OrderItems } from '../types/types'

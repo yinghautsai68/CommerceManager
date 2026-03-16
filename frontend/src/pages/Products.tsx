@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Title } from '../components/Typography'
 import ProductCard from '../components/ProductCard'
 import { Button } from '../components/Button'

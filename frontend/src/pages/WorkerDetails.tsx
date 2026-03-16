@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { SubTitle, Title } from '../components/Typography'
 import FormInput from '../components/FormInput'
 import { Button } from '../components/Button'
-import { Form, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import FormSelect from '../components/FormSelect'
 import { UtilsContext } from '../context/UtilsContext'
 
@@ -91,7 +91,7 @@ const WorkerDetails = () => {
     }
     useEffect(() => { if (id) { fetchWorker() } }, []);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }))
     }

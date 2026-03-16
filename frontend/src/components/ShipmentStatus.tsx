@@ -1,8 +1,9 @@
-type ShipmentStatus = 'pending' | 'shipped' | 'completed' | 'cancelled';
+type ShipmentStatus = '' | 'pending' | 'shipped' | 'completed' | 'cancelled';
 interface ShipmentStatusProps {
     status: ShipmentStatus
 }
 const statusMap: Record<ShipmentStatus, string> = {
+    '': '',
     pending: "待出貨",
     shipped: "已出貨",
     completed: '已送達',
@@ -10,6 +11,7 @@ const statusMap: Record<ShipmentStatus, string> = {
 }
 
 const classNameMap: Record<ShipmentStatus, string> = {
+    '': '',
     pending: "bg-orange-500",
     shipped: "bg-blue-500",
     completed: "bg-green-500",

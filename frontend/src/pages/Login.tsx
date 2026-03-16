@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FormTitle, SubTitle } from '../components/Typography'
+import { FormTitle } from '../components/Typography'
 import FormInput from '../components/FormInput'
 import { Button } from '../components/Button'
 import { useNavigate } from 'react-router-dom'
@@ -77,7 +77,7 @@ const Login = () => {
                         <FormInput label='使用者名稱' name='username' type='text' value={formData.username} handleChange={handleChange}></FormInput>
                         <FormInput label='密碼' name='password' type='password' value={formData.password} handleChange={handleChange}></FormInput>
                     </div>
-                    <Button type='submit' className=''>登入!</Button>
+                    <Button className=''>登入!</Button>
                 </form>
             </div>
         </div>

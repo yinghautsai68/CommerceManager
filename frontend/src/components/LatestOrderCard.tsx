@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import PaymentStatus from './PaymentStatus'
 import type { Order } from '../types/types'
 import ShipmentStatus from './ShipmentStatus'

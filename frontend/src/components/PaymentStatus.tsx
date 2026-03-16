@@ -1,15 +1,17 @@
-type PaymentStatusType = 'paid' | 'pending' | 'failed';
+type PaymentStatusType = '' | 'paid' | 'pending' | 'failed';
 interface PaymentStatusProps {
     status: PaymentStatusType
 }
 
 const paymentStatusMap: Record<PaymentStatusType, string> = {
+    '': '',
     paid: "已付款",
     pending: "未付款",
     failed: "付款失敗",
 }
 
 const classNameMap: Record<PaymentStatusType, string> = {
+    '': '',
     paid: "bg-green-500",
     pending: "bg-orange-500",
     failed: "bg-red-400"

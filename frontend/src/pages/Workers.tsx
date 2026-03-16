@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Title } from '../components/Typography'
 import Filter from '../components/Filter'
 import { Button } from '../components/Button'
@@ -16,7 +16,7 @@ const Workers = () => {
     const work = searchParams.get("work") || "";
     const status = searchParams.get("status") || "";
     const [totalPages, setTotalPages] = useState(0);
-    const page = searchParams.get("page") || "";
+    const page = Number(searchParams.get("page")) || 0;
     const search = searchParams.get("search") || "";
 
     const workersFilters = [
@@ -77,6 +77,8 @@ const Workers = () => {
             </div>
             <div className='flex flex-col gap-2 w-full'>
                 <Filter
+                    page={page}
+                    search={search}
                     filters={workersFilters}
                     searchParams={searchParams}
                     setSearchParams={setSearchParams}

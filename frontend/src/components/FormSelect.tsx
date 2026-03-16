@@ -7,7 +7,7 @@ interface FormSelectProps {
     value: string,
     handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void,
     isEditing: boolean,
-    options: [{ label: string, value: string }]
+    options: { label: string, value: string }[]
 }
 
 const FormSelect = ({ label, name, value, handleChange, isEditing, options }: FormSelectProps) => {

@@ -54,12 +54,12 @@ const Register = () => {
             <form onSubmit={handleSubmit} className='flex flex-col justify-between items-center gap-2 w-[80%] h-[50%] px-5 py-10 border  '>
                 <FormTitle className='h-[10%] text-center'>Register</FormTitle>
                 <div className='flex flex-col justify-center items-center w-full'>
-                    <FormInput name='username' type='text' value={formData.username} handleChange={handleChange}></FormInput>
-                    <FormInput name='password' type='password' value={formData.password} handleChange={handleChange}></FormInput>
-                    <FormInput name='confirmPassword' type='password' value={formData.confirmPassword} handleChange={handleChange}></FormInput>
+                    <FormInput label='username' name='username' type='text' value={formData.username} handleChange={handleChange}></FormInput>
+                    <FormInput label='password' name='password' type='password' value={formData.password} handleChange={handleChange}></FormInput>
+                    <FormInput label='confirm password' name='confirmPassword' type='password' value={formData.confirmPassword} handleChange={handleChange}></FormInput>
                 </div>
 
-                <Button type='submit' className=''>Register!</Button>
+                <Button className=''>Register!</Button>
 
             </form>
         </div>

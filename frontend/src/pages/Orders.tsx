@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Title } from '../components/Typography';
-import { Button } from '../components/Button';
-import { Card } from '../components/Card';
 import OrderCard from '../components/OrderCard';
-
-
-import Pagination from '../components/Pagination';
 import Filter from '../components/Filter';
 import type { Order } from '../types/types';
 import { Link } from 'react-router-dom';

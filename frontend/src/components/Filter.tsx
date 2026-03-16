@@ -70,7 +70,7 @@ const Filter = ({ filters = [], totalPages, page, search, searchParams, setSearc
                 {
                     Array.from({ length: totalPages }, (_, i) => i + 1).map((item, index) => {
                         return (
-                            <PageNumber
+                            <PageNumber key={index}
                                 onClick={() => setSearchParams({ ...Object.fromEntries([...searchParams]), page: String(item), limit: String(10) })}
                                 active={item === page}
                             >

@@ -3,9 +3,9 @@ export interface Worker {
     name: string,
     email: string,
     phone: string,
-    role: string,
-    work: string,
-    status: string,
+    role: 'admin' | 'worker',
+    work: 'desk' | 'developer',
+    status: 'active' | 'inactive',
     created_at: string,
 }
 
@@ -27,15 +27,14 @@ export interface Product {
 export interface Order {
     id: number,
     order_date: string,
-    payment_status: 'pending' | 'paid' | 'failed',
-    shipment_status: 'pending' | 'shipped' | 'completed' | 'cancelled',
+    payment_status: '' | 'pending' | 'paid' | 'failed',
+    shipment_status: '' | 'pending' | 'shipped' | 'completed' | 'cancelled',
     customer_name: string,
     customer_number: string,
     customer_address: string,
     shipping_method: string,
     shipping_fee: number,
     tax: number,
-    total_items: number,
     total_amount: number,
     remarks: string,
 
