@@ -37,7 +37,7 @@ const Dashboard = () => {
     const [totalRevenue, setTotalRevenue] = useState<number>(0);
     const fetchTotalRevenue = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/total-revenue`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/total-revenue`, {
                 method: "GET"
             });
             const result = await response.json();
@@ -54,7 +54,7 @@ const Dashboard = () => {
     const [averageOrderAmount, setAverageOrderAmount] = useState<number>(0);
     const fetchAverageOrderAmount = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/average-order-amount`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/average-order-amount`, {
                 method: "GET"
             });
             const result = await response.json();
@@ -72,7 +72,7 @@ const Dashboard = () => {
     const [pendingShipmentOrders, setPendingShipmentOrders] = useState<number>(0);
     const fetchPendingShipmentOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/pending-shipment`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/pending-shipment`, {
                 method: "GET"
             });
             const result = await response.json();
@@ -94,7 +94,7 @@ const Dashboard = () => {
     const [revenueByDate, setRevenueByDate] = useState<RevenueByDate[]>([])
     const fetchRevenueByDate = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/revenue-by-date`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/revenue-by-date`, {
                 method: "GET"
             });
             const result = await response.json();
@@ -112,7 +112,7 @@ const Dashboard = () => {
     const [lowStockProducts, setLowStockProducts] = useState<Product[]>([]);
     const fetchLowStockProducts = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products/low-stock`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/low-stock`, {
                 method: "GET"
             });
             const result = await response.json();
@@ -129,7 +129,7 @@ const Dashboard = () => {
     const [latestOrders, setLatestOrders] = useState<Order[]>([]);
     const fetchLatestOrders = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/latest`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/latest`, {
                 method: "GET"
             });
 
@@ -148,7 +148,7 @@ const Dashboard = () => {
     const [topSelllingProducts, setTopSellingProducts] = useState<Product[]>([]);
     const fetchTopSellingProducts = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products/top-selling`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/top-selling`, {
                 method: "GET"
             });
 

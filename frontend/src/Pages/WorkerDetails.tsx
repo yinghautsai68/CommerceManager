@@ -76,7 +76,7 @@ const WorkerDetails = () => {
     const [isEditing, setIsEditing] = useState<boolean>(!id);
     const fetchWorker = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/users/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
                 method: 'GET'
             });
             const result = await response.json();
@@ -98,7 +98,7 @@ const WorkerDetails = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/users/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
                 method: 'DELETE'
             })
 
@@ -118,7 +118,7 @@ const WorkerDetails = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch(!!id ? `http://localhost:5000/api/users/${id}` : 'http://localhost:5000/api/users', {
+            const response = await fetch(!!id ? `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}` : '${import.meta.env.VITE_BACKEND_URL}/api/users', {
                 method: id ? 'PATCH' : 'POST',
                 headers: {
                     'Content-Type': 'application/json'

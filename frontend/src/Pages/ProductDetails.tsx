@@ -38,7 +38,7 @@ const ProductDetails = () => {
     if (id) {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, {
                     method: 'GET'
                 })
                 const result = await response.json();
@@ -68,7 +68,7 @@ const ProductDetails = () => {
             stock: Number(formData.stock)
         }
         try {
-            const response = await fetch(id ? `http://localhost:5000/api/products/${id}` : `http://localhost:5000/api/products`, {
+            const response = await fetch(id ? `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}` : `${import.meta.env.VITE_BACKEND_URL}/api/products`, {
                 method: id ? 'PATCH' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -106,7 +106,7 @@ const ProductDetails = () => {
         formDataImage.append("image", file);
 
         try {
-            const response = await fetch("http://localhost:5000/api/upload", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/upload`, {
                 method: "POST",
                 body: formDataImage
             })
@@ -125,7 +125,7 @@ const ProductDetails = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, {
                 method: 'DELETE'
             })
             const result = await response.json();

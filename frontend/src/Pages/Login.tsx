@@ -24,7 +24,7 @@ const Login = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         try {
-            const response = await fetch(`http://localhost:5000/api/auth/login`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -44,7 +44,7 @@ const Login = () => {
             });
 
             localStorage.setItem("token", data.token);
-            const response2 = await fetch("http://localhost:5000/api/auth/me", {
+            const response2 = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/auth/me`, {
                 method: "GET",
                 headers: {
                     'Content-Type': "application/json",

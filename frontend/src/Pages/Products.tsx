@@ -10,7 +10,7 @@ const Products = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const fetchProducts = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`, {
                 method: 'GET'
             })
             const result = await response.json();

@@ -32,7 +32,7 @@ const OrderDetails = () => {
 
     const fetchOrder = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/${id}`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/${id}`, {
                 method: 'GET'
             })
             const result = await response.json();
@@ -51,7 +51,7 @@ const OrderDetails = () => {
     const [orderItems, setOrderItems] = useState<OrderItems[]>([]);
     const fetchOrderItems = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/orders/${id}/items`, {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/${id}/items`, {
                 method: 'GET'
             })
             const result = await response.json();

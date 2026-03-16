@@ -53,7 +53,7 @@ const Workers = () => {
     const [workers, setWorkers] = useState<Worker[]>([]);
     const fetchWorkers = async () => {
         console.log("fetching workers!")
-        const response = await fetch(`http://localhost:5000/api/users?search=${search}&page=${page}&role=${role}&work=${work}&status=${status}`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users?search=${search}&page=${page}&role=${role}&work=${work}&status=${status}`, {
             method: "GET"
         });
         const result = await response.json();
