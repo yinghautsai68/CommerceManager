@@ -1,6 +1,4 @@
 import type { Request, Response } from "express";
-import { success } from "zod";
-
 export const uploadImage = async (req: Request, res: Response) => {
     try {
         const file = req.file as any;

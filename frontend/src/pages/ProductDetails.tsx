@@ -8,8 +8,14 @@ import { useNavigate, useParams } from 'react-router-dom'
 import type { Product } from '../types/types'
 import FormSelect from '../components/FormSelect'
 import { UtilsContext } from '../context/UtilsContext'
+import { jwtDecode } from 'jwt-decode'
 const ProductDetails = () => {
     const token = localStorage.getItem("token");
+    let userRole = "";
+    if (token) {
+        const decoded: any = jwtDecode(token);
+        userRole = decoded.role;
+    }
 
     const { formatDate } = useContext(UtilsContext);
 
@@ -62,7 +68,7 @@ const ProductDetails = () => {
     }
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const payload = {
+        const formatData = {
             ...formData,
             price: Number(formData.price),
             stock: Number(formData.stock)
@@ -74,7 +80,7 @@ const ProductDetails = () => {
                     'Content-Type': 'application/json',
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(formatData)
             })
             const result = await response.json();
             if (!result.success) {
@@ -126,7 +132,10 @@ const ProductDetails = () => {
     const handleDelete = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             const result = await response.json();
             if (!result.success) {
@@ -142,7 +151,7 @@ const ProductDetails = () => {
 
 
     useEffect(() => { console.log(formData) }, [formData]);
-
+    useEffect(() => { console.log(userRole) }, [userRole])
 
     return (
         <div className='flex flex-col gap-5 px-2 md:px-10'>
@@ -160,7 +169,11 @@ const ProductDetails = () => {
                     <div className='flex flex-row justify-center items-end gap-1'>
 
                         <Button onClick={() => setIsEditing(prev => !prev)} className='p-1'>編輯</Button>
-                        <Button onClick={() => handleDelete()} className='p-1 bg-red-400'>刪除</Button>
+                        {
+                            userRole === "admin" &&
+                            <Button onClick={() => handleDelete()} className='p-1 bg-red-400'>刪除</Button>
+                        }
+
                     </div>
                 }
 

@@ -15,7 +15,7 @@ const classNameMap = {
 }
 const ActiveStatus = ({ className, status }: ActiveStatusProps) => {
     return (
-        <div className={`${classNameMap[status]} flex flex-row items - center px - 2 py - 2 `}>
+        <div className={`${classNameMap[status]} flex flex-row items-center px-2 py-2 `}>
             <span className={`${className} text-white`}>{activeStatusMap[status]}</span>
         </div>
     )
