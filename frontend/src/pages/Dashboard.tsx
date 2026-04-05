@@ -12,13 +12,17 @@ import LowStockCard from '../components/LowStockCard';
 import type { Order, Product } from '../types/types';
 
 const Dashboard = () => {
+    const token = localStorage.getItem("token");
 
     //KPI CARDS
     const [totalRevenue, setTotalRevenue] = useState<number>(0);
     const fetchTotalRevenue = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/total-revenue`, {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
             const result = await response.json();
             if (!result.success) {
@@ -35,7 +39,10 @@ const Dashboard = () => {
     const fetchAverageOrderAmount = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/average-order-amount`, {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
             const result = await response.json();
             if (!result.success) {
@@ -53,7 +60,10 @@ const Dashboard = () => {
     const fetchPendingShipmentOrders = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/pending-shipment`, {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
             const result = await response.json();
             if (!result.success) {
@@ -75,7 +85,10 @@ const Dashboard = () => {
     const fetchRevenueByDate = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/revenue-by-date`, {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
             const result = await response.json();
             if (!result.success) {
@@ -89,28 +102,36 @@ const Dashboard = () => {
     }
 
     //Tables
-    const [lowStockProducts, setLowStockProducts] = useState<Product[]>([]);
-    const fetchLowStockProducts = async () => {
+    const [topSelllingProducts, setTopSellingProducts] = useState<Product[]>([]);
+    const fetchTopSellingProducts = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/low-stock`, {
-                method: "GET"
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/top-selling`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
+
             const result = await response.json();
             if (!result.success) {
                 return console.log(result.message);
             }
             console.log(result.data);
-            setLowStockProducts(result.data);
+            setTopSellingProducts(result.data)
         } catch (error) {
             console.log(error);
         }
     }
 
+
     const [latestOrders, setLatestOrders] = useState<Order[]>([]);
     const fetchLatestOrders = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/latest`, {
-                method: "GET"
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
 
             const result = await response.json();
@@ -124,20 +145,21 @@ const Dashboard = () => {
         }
     }
 
-
-    const [topSelllingProducts, setTopSellingProducts] = useState<Product[]>([]);
-    const fetchTopSellingProducts = async () => {
+    const [lowStockProducts, setLowStockProducts] = useState<Product[]>([]);
+    const fetchLowStockProducts = async () => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/top-selling`, {
-                method: "GET"
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products/low-stock`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             });
-
             const result = await response.json();
             if (!result.success) {
                 return console.log(result.message);
             }
             console.log(result.data);
-            setTopSellingProducts(result.data)
+            setLowStockProducts(result.data);
         } catch (error) {
             console.log(error);
         }
