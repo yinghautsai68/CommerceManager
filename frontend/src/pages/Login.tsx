@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FormTitle, SubTitle } from '../components/Typography'
+import { FormTitle } from '../components/Typography'
 import FormInput from '../components/FormInput'
 import { Button } from '../components/Button'
 import { useNavigate } from 'react-router-dom'
