@@ -1,4 +1,3 @@
-import Sony from '../assets/sony_wh1000xm4.jpg'
 import type { Product } from '../types/types'
 
 interface LowStockCardProps {
