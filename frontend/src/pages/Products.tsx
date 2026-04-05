@@ -4,9 +4,16 @@ import ProductCard from '../components/ProductCard'
 import { Button } from '../components/Button'
 import type { Product } from '../types/types'
 import { Link } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 
 
 const Products = () => {
+    const token = localStorage.getItem("token");
+    let userRole = ''
+    if (token) {
+        const decoded: any = jwtDecode(token);
+        userRole = decoded.role;
+    }
     const [products, setProducts] = useState<Product[]>([]);
     const fetchProducts = async () => {
         try {
@@ -28,9 +35,13 @@ const Products = () => {
         <div className='flex flex-col gap-5 w-full lg:px-10  '>
             <div className='flex flex-row justify-between items-centers w-full '>
                 <Title className=''>商品</Title>
-                <Link to='/products/new'>
-                    <Button className='p-2 font-bold'>新增商品</Button>
-                </Link>
+                {
+                    (userRole === 'admin' || userRole === 'worker') &&
+                    <Link to='/products/new'>
+                        <Button className='p-2 font-bold'>新增商品</Button>
+                    </Link>
+                }
+
 
             </div>
             <div className='flex flex-col gap-1 '>

@@ -63,9 +63,15 @@ const Workers = () => {
         console.log("fetching workers!")
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users?search=${search}&page=${page}&role=${role}&work=${work}&status=${status}`, {
             method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
 
         });
         const result = await response.json();
+        if (!result.success) {
+            return console.log(result.message);
+        }
         console.log(result.data);
         setWorkers(result.data);
         console.log(result.totalUsers);

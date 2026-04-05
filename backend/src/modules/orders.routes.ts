@@ -4,7 +4,7 @@ import { protect } from '../middleware/auth';
 
 const router = express.Router();
 
-router.get('/', getOrders);
+router.get('/', protect(), getOrders);
 router.get('/latest', protect(["admin", "worker"]), getLatestOrders);
 
 //KPI
@@ -15,7 +15,7 @@ router.get('/average-order-amount', protect(["admin", "worker"]), getAverageOrde
 router.get('/revenue-by-date', protect(["admin", "worker"]), getRevenueByDate);
 
 
-router.get('/:id', getOrder);
-router.get('/:id/items', getOrderItems)
+router.get('/:id', protect(), getOrder);
+router.get('/:id/items', protect(), getOrderItems)
 
 export default router;
