@@ -11,6 +11,8 @@ import { UtilsContext } from '../context/UtilsContext'
 import PaymentStatus from '../components/PaymentStatus'
 import ShipmentStatus from '../components/ShipmentStatus'
 const OrderDetails = () => {
+    const token = localStorage.getItem("token");
+
     const { formatDate } = useContext(UtilsContext);
 
     const { id } = useParams();
@@ -33,7 +35,10 @@ const OrderDetails = () => {
     const fetchOrder = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/${id}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             const result = await response.json();
             if (!result.success) {
@@ -52,7 +57,10 @@ const OrderDetails = () => {
     const fetchOrderItems = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders/${id}/items`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             const result = await response.json();
             if (!result.success) {

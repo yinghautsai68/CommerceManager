@@ -5,14 +5,14 @@ import { protect } from '../middleware/auth';
 const router = express.Router();
 
 router.get('/', protect(), getOrders);
-router.get('/latest', protect(["admin", "worker"]), getLatestOrders);
+router.get('/latest', protect(), getLatestOrders);
 
 //KPI
-router.get('/total-revenue', protect(["admin", "worker"]), getTotalRevenue);
-router.get('/pending-shipment', protect(["admin", "worker"]), getPendingShipmentOrders);
-router.get('/average-order-amount', protect(["admin", "worker"]), getAverageOrderAmount);
+router.get('/total-revenue', protect(), getTotalRevenue);
+router.get('/pending-shipment', protect(), getPendingShipmentOrders);
+router.get('/average-order-amount', protect(), getAverageOrderAmount);
 //Graph
-router.get('/revenue-by-date', protect(["admin", "worker"]), getRevenueByDate);
+router.get('/revenue-by-date', protect(), getRevenueByDate);
 
 
 router.get('/:id', protect(), getOrder);

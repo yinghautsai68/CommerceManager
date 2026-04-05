@@ -18,7 +18,10 @@ const Products = () => {
     const fetchProducts = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             const result = await response.json();
             if (!result.success) {

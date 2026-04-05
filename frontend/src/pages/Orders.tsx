@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 
 import { useSearchParams } from 'react-router-dom';
 const Orders = () => {
+    const token = localStorage.getItem("token");
+
     const [searchParams, setSearchParams] = useSearchParams();
     const page = Number(searchParams.get("page")) || 1;
     const limit = Number(searchParams.get("limit")) || 10;
@@ -42,7 +44,10 @@ const Orders = () => {
     const fetchOrders = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders?page=${page}&limit=${limit}&paymentStatus=${paymentStatus}&shipmentStatus=${shipmentStatus}&search=${search}`, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
             const result = await response.json();
             if (!result.success) {
