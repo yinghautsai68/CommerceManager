@@ -64,7 +64,7 @@ export const getUsers = async (req: Request, res: Response) => {
         }
 
         if (search) {
-            filters.push("name LIKE ? OR email LIKE ? OR phone LIKE ?"),
+            filters.push("(name LIKE ? OR email LIKE ? OR phone LIKE ?)"),
                 params.push(`%${search}%`, `${search}%`, `${search}%`)
         }
 

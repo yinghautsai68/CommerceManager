@@ -158,6 +158,7 @@ const WorkerDetails = () => {
                     created_at: "",
                     updated_at: ""
                 })
+                navigate('/workers');
             } else if (id) {
                 alert("Worker successfully edited!");
                 setIsEditing(false);

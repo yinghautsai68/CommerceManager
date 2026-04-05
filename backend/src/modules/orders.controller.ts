@@ -13,6 +13,7 @@ export const createOrder = async (req: Request, res: Response) => {
 
 export const getOrders = async (req: Request, res: Response) => {
     try {
+
         const page = Number(req.query.page) || 1;
         const limit = Number(req.query.limit) || 10;
         const paymentStatus = req.query.paymentStatus || "";
@@ -25,6 +26,7 @@ export const getOrders = async (req: Request, res: Response) => {
         let filters = [];
         let params = [];
 
+
         if (paymentStatus) {
             filters.push("payment_status =?");
             params.push(paymentStatus);
@@ -36,8 +38,8 @@ export const getOrders = async (req: Request, res: Response) => {
         }
 
         if (search) {
-            filters.push("customer_name LIKE ? OR id LIKE ?");
-            //params.push(search, search);
+            filters.push("(orders.customer_name LIKE ? OR orders.id LIKE ?)");
+
             params.push(`%${search}%`, `%${search}%`);
         }
 

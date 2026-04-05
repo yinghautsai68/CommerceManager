@@ -13,7 +13,7 @@ interface FormSelectProps {
 const FormSelect = ({ label, name, value, handleChange, isEditing, options }: FormSelectProps) => {
     return (
         <div className='flex flex-col w-full'>
-            <label className='capitalize  lg:text-xl text-gray-500 font-semibold'>{label}</label>
+            <label className='capitalize text-sm lg:text-lg text-gray-500 font-semibold'>{label}</label>
             <select name={name} value={value} onChange={(e) => handleChange(e)} disabled={!isEditing} className={`${isEditing ? 'border border-gray-300 rounded-lg' : 'appearance-none'} pl-5 py-2`}>
                 {
                     options.map((item, index) => {

@@ -53,7 +53,7 @@ const Orders = () => {
             if (!result.success) {
                 return console.log(result.message);
             }
-            console.log(result)
+            console.log(result.message)
             console.log(result.data);
             setOrders(result.data);
 
