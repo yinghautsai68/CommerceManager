@@ -1,12 +1,12 @@
 import { type Request, type Response } from "express";
-import { userSchema } from "./users.schema";
+import { createUserSchema, editUserSchema } from "./users.schema";
 import { db } from "../config/db";
 
 import bcrypt from 'bcrypt'
 import { success } from "zod";
 
 export const createUser = async (req: Request, res: Response) => {
-    const result = userSchema.safeParse(req.body);
+    const result = createUserSchema.safeParse(req.body);
     if (!result.success) {
 
         return res.status(400).json({ error: result.error });
@@ -28,7 +28,7 @@ export const createUser = async (req: Request, res: Response) => {
             "INSERT INTO users (name, email, phone, role, work, status, password) VALUES (?,?,?,?,?,?,?)",
             [name, email, phone, role, work, status, hashedPassword]
         );
-        res.status(201).json({ message: "user created successfully!" });
+        res.status(201).json({ success: true, message: "user created successfully!" });
     } catch (error) {
         res.status(500).json({ message: "server error" });
     }
@@ -46,7 +46,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
         const search = req.query.search || "";
 
-        let query = "SELECT * FROM users ";
+        let query = "SELECT id, name, email, phone, role, work, status, created_at, updated_at FROM users ";
         let filters = [];
         let params = [];
 
@@ -77,6 +77,7 @@ export const getUsers = async (req: Request, res: Response) => {
         params.push(limit, offset)
 
         const [rows]: any = await db.query(query, params);
+
 
 
         //Page count
@@ -119,18 +120,16 @@ export const editUser = async (req: Request, res: Response) => {
     if (!id) {
         return res.status(400).json({ message: "Missing user id" });
     }
-
-
-    const result = userSchema.safeParse(req.body);
+    const result = editUserSchema.safeParse(req.body);
     if (!result.success) {
         return res.status(400).json({ message: result.error });
     }
     try {
-        const { name, email, phone, role, work, status, password } = result.data;
+        const { name, email, phone, role, work, status } = result.data;
 
         const [updateResult]: any = await db.query(
-            "UPDATE users SET name = ?, email = ?, phone = ?, role = ?, work = ?, status = ?, password = ? WHERE id = ?",
-            [name, email, phone, role, work, status, password, id]
+            "UPDATE users SET name = ?, email = ?, phone = ?, role = ?, work = ?, status = ? WHERE id = ?",
+            [name, email, phone, role, work, status, id]
         );
 
         if (updateResult.affectedRows === 0) {
@@ -154,7 +153,7 @@ export const deleteUser = async (req: Request, res: Response) => {
             "DELETE FROM users WHERE id =? ",
             [id]
         );
-        res.status(200).json({ message: "User deleted successfully!" })
+        res.status(200).json({ success: true, message: "User deleted successfully!" })
     } catch (error) {
         res.status(500).json({ message: "server error" });
     }

@@ -9,8 +9,16 @@ import type { Worker } from '../types/types'
 import WorkerCard from '../components/WorkerCard'
 import { Link, useSearchParams } from 'react-router-dom'
 
-
+import { jwtDecode } from "jwt-decode";
 const Workers = () => {
+    const token = localStorage.getItem("token");
+    let userRole = "";
+
+    if (token) {
+        const decoded: any = jwtDecode(token);
+        userRole = decoded.role;
+    }
+
     const [searchParams, setSearchParams] = useSearchParams();
     const role = searchParams.get("role") || "";
     const work = searchParams.get("work") || "";
@@ -54,7 +62,8 @@ const Workers = () => {
     const fetchWorkers = async () => {
         console.log("fetching workers!")
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users?search=${search}&page=${page}&role=${role}&work=${work}&status=${status}`, {
-            method: "GET"
+            method: "GET",
+
         });
         const result = await response.json();
         console.log(result.data);
@@ -70,9 +79,13 @@ const Workers = () => {
         <div className='flex flex-col gap-5  lg:px-10'>
             <div className='flex flex-row justify-between w-full'>
                 <Title>員工</Title>
-                <Link to='/workers/new'>
-                    <Button className='p-2 font-bold'>新增員工</Button>
-                </Link>
+                {
+                    userRole === "admin" &&
+                    <Link to='/workers/new'>
+                        <Button className='p-2 font-bold'>新增員工</Button>
+                    </Link>
+                }
+
 
             </div>
             <div className='flex flex-col gap-2 w-full'>

@@ -19,8 +19,8 @@ export const protect = (roles: string[] = []) => {
 
             const decoded: any = jwt.verify(token, env.JWT_SECRET);
             (req as any).user = decoded;
-            // Safe role check outside try/catch
-            if (roles.length > 0 && typeof decoded.role === "string" && !roles.includes(decoded.role)) {
+
+            if (roles.length > 0 && !roles.includes(decoded.role)) {
                 return res.status(403).json({ message: "Access denied" });
             }
 

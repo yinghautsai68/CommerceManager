@@ -23,8 +23,8 @@ const App = () => {
       <Route path='/orders' element={<DashboardLayout><Orders /></DashboardLayout>} />
       <Route path='/orders/:id' element={<DashboardLayout><OrderDetails /></DashboardLayout>} />
       <Route path='/workers' element={<DashboardLayout><Workers /></DashboardLayout>} />
-      <Route path='/workers/:id' element={<DashboardLayout><WorkerDetails></WorkerDetails></DashboardLayout>} />
       <Route path='/workers/new' element={<DashboardLayout><WorkerDetails></WorkerDetails></DashboardLayout>} />
+      <Route path='/workers/:id' element={<DashboardLayout><WorkerDetails></WorkerDetails></DashboardLayout>} />
 
     </Routes >
   )

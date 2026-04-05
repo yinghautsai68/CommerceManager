@@ -32,7 +32,7 @@ export const register = async (req: Request, res: Response) => {
 
         // Register
         await db.execute(
-            "INSERT INTO users (username, password) VALUES (?,?)",
+            "INSERT INTO users (username, password, email, phone, role, work, status) VALUES (?,?)",
             [username, hashedPassword]
         );
 

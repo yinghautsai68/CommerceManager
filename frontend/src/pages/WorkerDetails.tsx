@@ -5,6 +5,7 @@ import { Button } from '../components/Button'
 import { useNavigate, useParams } from 'react-router-dom'
 import FormSelect from '../components/FormSelect'
 import { UtilsContext } from '../context/UtilsContext'
+import { jwtDecode } from 'jwt-decode'
 
 interface formDataProps {
     name: string,
@@ -18,6 +19,13 @@ interface formDataProps {
     updated_at: string
 };
 const WorkerDetails = () => {
+    const token = localStorage.getItem("token");
+    let userRole = "";
+    if (token) {
+        const decoded: any = jwtDecode(token);
+        userRole = decoded.role;
+    }
+
     const { formatDate } = useContext(UtilsContext);
 
     const navigate = useNavigate();
@@ -99,11 +107,14 @@ const WorkerDetails = () => {
     const handleDelete = async () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/users/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
 
             const result = await response.json();
-            if (!result.ok) {
+            if (!result.success) {
                 return console.log(result.message);
             }
             console.log(result.message);
@@ -118,10 +129,11 @@ const WorkerDetails = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch(!!id ? `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}` : '${import.meta.env.VITE_BACKEND_URL}/api/users', {
+            const response = await fetch(!!id ? `${import.meta.env.VITE_BACKEND_URL}/api/users/${id}` : `${import.meta.env.VITE_BACKEND_URL}/api/users`, {
                 method: id ? 'PATCH' : 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(formData)
             })
@@ -160,10 +172,14 @@ const WorkerDetails = () => {
                         <Title>員工資訊</Title>
                         <SubTitle className='px-5'>#{id}</SubTitle>
                     </div>
-                    <div className='flex flex-row items-center gap-1'>
-                        <Button onClick={() => { setIsEditing(!isEditing) }}>編輯</Button>
-                        <Button onClick={() => handleDelete()} className='bg-red-400 hover:bg-red-600'>刪除</Button>
-                    </div>
+                    {
+                        userRole === "admin" &&
+                        <div className='flex flex-row items-center gap-1'>
+                            <Button onClick={() => { setIsEditing(!isEditing) }}>編輯</Button>
+                            <Button onClick={() => handleDelete()} className='bg-red-400 hover:bg-red-600'>刪除</Button>
+                        </div>
+                    }
+
                 </div>
                 :
                 < div className='flex flex-row justify-between items-end'>
@@ -175,16 +191,20 @@ const WorkerDetails = () => {
                 </div>
             }
 
-            <div className='flex flex-row  items-center gap-20'>
-                <div className='flex flex-col '>
-                    <span className='text-gray-500'>創建時間</span>
-                    <span className='-translate-y-2'>{formatDate(formData.created_at)}</span>
+            {
+                id &&
+                <div className='flex flex-row  items-center gap-20'>
+                    <div className='flex flex-col '>
+                        <span className='text-gray-500'>創建時間</span>
+                        <span className='-translate-y-2'>{formatDate(formData.created_at)}</span>
+                    </div>
+                    <div className='flex flex-col '>
+                        <span className='text-gray-500'>創建時間</span>
+                        <span className='-translate-y-2'>{formatDate(formData.updated_at)}</span>
+                    </div>
                 </div>
-                <div className='flex flex-col '>
-                    <span className='text-gray-500'>創建時間</span>
-                    <span className='-translate-y-2'>{formatDate(formData.updated_at)}</span>
-                </div>
-            </div>
+            }
+
 
             <form onSubmit={handleSubmit} className='flex flex-col gap-5 xl:w-[70%] px-2 overflow-auto'>
                 <FormInput name='name' label='員工姓名' type='text' value={formData.name} handleChange={handleChange} readOnly={!isEditing} />
@@ -194,8 +214,9 @@ const WorkerDetails = () => {
                 <FormSelect name='work' label='工作崗位' value={formData.work} options={workOptions} handleChange={handleChange} isEditing={isEditing} />
                 <FormSelect name='status' label='狀態' value={formData.status} options={statusOptions} handleChange={handleChange} isEditing={isEditing} />
                 {
-                    isEditing &&
-                    < FormInput name='password' label='密碼' type='password' value={formData.password} handleChange={handleChange} readOnly={!isEditing} />
+                    !id && userRole === "admin" &&
+                    <FormInput name='password' label='密碼' type='password' value={formData.password} handleChange={handleChange} readOnly={!isEditing} />
+
                 }
                 {
                     isEditing &&
