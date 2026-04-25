@@ -25,12 +25,10 @@ https://commerce-manager-cqow.vercel.app/dashboard
 - TypeScript
 - Express.js
 - MySQL
-- MongoDB
 - RESTful API
 - Multer.js
 - AWS S3
 - AWS RDS
-- Cloundinary
 
 ## 展示
 ### 儀表膽
