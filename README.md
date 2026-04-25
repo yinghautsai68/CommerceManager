@@ -1,8 +1,18 @@
 # CommerceManager
 ## 全端儀錶板
 ![screenshot](screenshots/thumbnail.png)
+
+## DEMO
 ### DEMO連結 
 https://commerce-manager-cqow.vercel.app/dashboard
+
+### 登入帳號：
+### 管理員帳號
+- 帳號：demo_admin 
+- 密碼： 1234
+### 員工帳號
+- 帳號：demo_worker
+- 密碼：1234
 
 ### 專案介紹
 這個專案是ECommerce的後端儀表板。平台中，管理員可以透過KPI、表以及其他顯示資料的工具。可以簡單查詢店的經營表現，除了此之外，也可以透過平台管理店內的
